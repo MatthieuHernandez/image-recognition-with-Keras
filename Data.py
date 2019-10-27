@@ -12,7 +12,7 @@ file = "test.png"
 def LoadSet(folder):
     data = LoadData(folder)
     labels = LoadLabels(folder)
-    values =(labels, data)
+    values =(data, labels)
     return values
 
 def LoadData(folder):
@@ -20,7 +20,7 @@ def LoadData(folder):
     path = "dataset\\" + folder + "\\inputs\\*.png"
     for filename in glob.glob(path):
         img = mpimg.imread(filename)
-        data = img.flatten(order='C')
+        data = img.reshape(400, 3)
         set.append(data)
     return np.asarray(set)
 
