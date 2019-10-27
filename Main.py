@@ -6,8 +6,12 @@ if __name__ == "__main__":
 
     print("Start")
 
-    model = Model()
-    model.Create()
+    trainSetData = LoadSetData("train")
+    easyTestSetData = LoadSetData("test_easy")
+    hardTestSetData = LoadSetData("test_hard")
+
+    #model = Model()
+    #model.Create()
     #CompileModel()
     
     print("End")
