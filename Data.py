@@ -20,7 +20,8 @@ def LoadData(folder):
     path = "dataset\\" + folder + "\\inputs\\*.png"
     for filename in glob.glob(path):
         img = mpimg.imread(filename)
-        data = img.reshape(400, 3)
+        data = img.flatten(order='C')
+        #data = img.reshape(400, 3)
         set.append(data)
     return np.asarray(set)
 
@@ -29,7 +30,7 @@ def LoadLabels(folder):
     with open(path, 'r') as file:
         labels = json.load(file)
     sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
-    values = [x[1] for x in sorted_labels]
+    values = [x[1]/360 for x in sorted_labels] # teleport has a cooldown of 360S
     return np.asarray(values)
 
 def ImageTest():
@@ -48,5 +49,5 @@ if __name__ == "__main__":
     
     #ImageTest()
     trainSet = LoadSet("train")
-    #print(trainSet.shape)
+    print(trainSet[1])
     print("End")
