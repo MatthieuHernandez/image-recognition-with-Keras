@@ -2,7 +2,6 @@ from keras.models import *
 from keras.layers import *
 import keras
 
-
 class Model:
 
     def __init__(self):
@@ -11,8 +10,9 @@ class Model:
 
     def Create(self):
         #Model
-        self.model.add(Dense(3200, activation='tanh'))
-        self.model.add(Dense(1600, activation='tanh'))
+        self.model.add(Conv2D(100, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
+        self.model.add(Flatten())
+        self.model.add(Dense(200, activation='tanh'))
         self.model.add(Dense(1, activation='sigmoid'))
 
         #Compile
@@ -26,7 +26,7 @@ class Model:
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, epochs=200, verbose = 0)#10 verbose = 2
+        history = self.model.fit(data, labels, epochs=700, verbose = 2)#10 verbose = 2
         return history
         
         #Train

@@ -10,6 +10,7 @@ if __name__ == "__main__":
     print("Start")
 
     trainSet = LoadSet("train")
+    print(trainSet[0].shape)
     easyTestSet = LoadSet("test_easy")
     hardTestSet = LoadSet("test_hard")
 

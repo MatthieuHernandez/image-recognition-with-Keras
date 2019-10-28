@@ -20,8 +20,9 @@ def LoadData(folder):
     path = "dataset\\" + folder + "\\inputs\\*.png"
     for filename in glob.glob(path):
         img = mpimg.imread(filename)
-        data = img.flatten(order='C')
-        #data = img.reshape(400, 3)
+        #data = img
+        #data = img.flatten(order='C')
+        data = img.reshape(20, 20, 3)
         set.append(data)
     return np.asarray(set)
 

@@ -10,6 +10,6 @@ def PlotResult(history, metric):
     plt.xlabel('epoch')
     #plt.ylim(ymin = 0, ymax = 1)
     plt.legend(['train', 'validation'], loc='upper left')
-    plt.text(len(values) - len(values)/10, values[-1] + 0.01, '%.4f'%values[-1])
+    plt.text(len(values) - (len(values)/10+1), values[-1] + 0.01, '%.4f'%values[-1])
     plt.show()
 
