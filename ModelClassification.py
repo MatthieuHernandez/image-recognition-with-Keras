@@ -10,19 +10,21 @@ class ModelClassification:
 
     def Create(self):
         #Model
-        self.model.add(Dense(30, activation='tanh'))
+        self.model.add(Dense(500, activation='tanh'))
+        self.model.add(Dense(100, activation='tanh'))
+        self.model.add(Dense(100, activation='tanh'))
         self.model.add(Dense(10, activation='sigmoid'))
 
         #Compile
-        self.model.compile(loss='mean_squared_error',
-              optimizer='sgd',#adam
-              metrics=['accuracy', 'mae']) #metrics=['mse','mae']
+        self.model.compile(loss='categorical_crossentropy',
+              optimizer='sgd',#adam #sgd
+              metrics=['accuracy']) #metrics=['mse','mae']
         
     def Train(self, set, epochs):
         #Fit
         data = set[0]
         #print(data.shape)
-        labels = set[1]
+        labels = keras.utils.to_categorical(set[1], 10)
         #print(labels.shape)
         history = self.model.fit(data, labels, epochs=epochs, verbose = 0)#10 verbose = 2
         return history
@@ -34,7 +36,7 @@ class ModelClassification:
     def Evaluate(self, set) :
         #Evaluate
         data = set[0]
-        labels = set[1]
+        labels = keras.utils.to_categorical(set[1], 10)
         score = self.model.evaluate(data, labels, verbose=0, use_multiprocessing=False)
         return score
 

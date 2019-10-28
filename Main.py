@@ -25,8 +25,8 @@ def regression():
     scoreEasy = model.Evaluate(easyTestSet)
     scoreHard = model.Evaluate(hardTestSet)
     
-    PrintAssert(scoreEasy[1], "Easy")
-    PrintAssert(scoreHard[1], "Hard")
+    PrintAssertRegression(scoreEasy[1], "Easy")
+    PrintAssertRegression(scoreHard[1], "Hard")
 
 def classification():
     trainSet = Classification.LoadSet("train")
@@ -41,21 +41,23 @@ def classification():
     
     print("Training model for regression...")
     
-    history = model.Train(trainSet, 3)
-    PlotResult(history, "mae")
+    history = model.Train(trainSet, 1000)
+    PlotResult(history, "accuracy")
+    
     print("Evaluating model for regression...")
     
-    scoreEasy = model.Evaluate(easyTestSet)
-    scoreHard = model.Evaluate(hardTestSet)
-    
-    PrintAssert(scoreEasy[1], "Easy")
-    PrintAssert(scoreHard[1], "Hard")
+    scoreTrain = model.Evaluate(trainSet)
+    scoreEasy  = model.Evaluate(easyTestSet)
+    scoreHard  = model.Evaluate(hardTestSet)   
+    PrintAssertClassification(scoreTrain[1], "train")
+    PrintAssertClassification(scoreEasy[1],  "Easy")
+    PrintAssertClassification(scoreHard[1],  "Hard")
 
 if __name__ == "__main__":
 
     print("Start")
     classification()
-    print("========================================================================")
-    print("========================================================================")
-    regression()
+    #print("========================================================================")
+    #print("========================================================================")
+    #regression()
     print("End")
