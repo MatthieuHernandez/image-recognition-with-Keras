@@ -1,6 +1,9 @@
 from Model import *
 from Data import *
 from Plot import *
+from Assert import *
+
+
 
 if __name__ == "__main__":
 
@@ -10,14 +13,21 @@ if __name__ == "__main__":
     easyTestSet = LoadSet("test_easy")
     hardTestSet = LoadSet("test_hard")
 
-    model = Model()
     print("Creation...")
+    
+    model = Model() 
     model.Create()
+    
     print("Training...")
+    
     history = model.Train(trainSet)
-    PlotResultLoss(history)
+    PlotResult(history, "mae")
     print("Evaluating...")
-    score = model.Evaluate(easyTestSet)
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
+    
+    scoreEasy = model.Evaluate(easyTestSet)
+    scoreHard = model.Evaluate(hardTestSet)
+    
+    PrintAssert(scoreEasy[1], "Easy")
+    PrintAssert(scoreHard[1], "Hard")
+    
     print("End")

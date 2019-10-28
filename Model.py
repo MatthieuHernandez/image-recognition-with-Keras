@@ -11,14 +11,14 @@ class Model:
 
     def Create(self):
         #Model
-        self.model.add(Dense(800, activation='tanh'))
-        self.model.add(Dense(400, activation='tanh'))
+        self.model.add(Dense(3200, activation='tanh'))
+        self.model.add(Dense(1600, activation='tanh'))
         self.model.add(Dense(1, activation='sigmoid'))
 
         #Compile
         self.model.compile(loss='mean_squared_error',
               optimizer='sgd',#adam
-              metrics=['accuracy']) #metrics=['mse','mae']
+              metrics=['accuracy', 'mae']) #metrics=['mse','mae']
         
     def Train(self, set):
         #Fit
@@ -26,7 +26,7 @@ class Model:
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, epochs=20, verbose = 0)#10 verbose = 2
+        history = self.model.fit(data, labels, epochs=200, verbose = 0)#10 verbose = 2
         return history
         
         #Train
