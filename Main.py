@@ -1,34 +1,61 @@
-from Model import *
-from Data import *
+from ModelRegression import *
+from ModelClassification import *
+from DataClassification import *
+from DataRegression import *
 from Plot import *
 from Assert import *
 
-
-
-if __name__ == "__main__":
-
-    print("Start")
-
-    trainSet = LoadSet("train")
+def regression():
+    trainSet = Regression.LoadSet("train")
     print(trainSet[0].shape)
-    easyTestSet = LoadSet("test_easy")
-    hardTestSet = LoadSet("test_hard")
+    easyTestSet = Regression.LoadSet("test_easy")
+    hardTestSet = Regression.LoadSet("test_hard")
 
-    print("Creation...")
+    print("Creation model for regression...")
     
-    model = Model() 
+    model = ModelRegression() 
     model.Create()
     
-    print("Training...")
+    print("Training model for regression...")
     
-    history = model.Train(trainSet)
+    history = model.Train(trainSet, 3)
     PlotResult(history, "mae")
-    print("Evaluating...")
+    print("Evaluating model for regression...")
     
     scoreEasy = model.Evaluate(easyTestSet)
     scoreHard = model.Evaluate(hardTestSet)
     
     PrintAssert(scoreEasy[1], "Easy")
     PrintAssert(scoreHard[1], "Hard")
+
+def classification():
+    trainSet = Classification.LoadSet("train")
+    print(trainSet[0].shape)
+    easyTestSet = Classification.LoadSet("test_easy")
+    hardTestSet = Classification.LoadSet("test_hard")
+
+    print("Creation model for regression...")
     
+    model = ModelClassification() 
+    model.Create()
+    
+    print("Training model for regression...")
+    
+    history = model.Train(trainSet, 3)
+    PlotResult(history, "mae")
+    print("Evaluating model for regression...")
+    
+    scoreEasy = model.Evaluate(easyTestSet)
+    scoreHard = model.Evaluate(hardTestSet)
+    
+    PrintAssert(scoreEasy[1], "Easy")
+    PrintAssert(scoreHard[1], "Hard")
+
+if __name__ == "__main__":
+
+    print("Start")
+    classification()
+    print("========================================================================")
+    print("========================================================================")
+    regression()
     print("End")

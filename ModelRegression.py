@@ -2,7 +2,7 @@ from keras.models import *
 from keras.layers import *
 import keras
 
-class Model:
+class ModelRegression:
 
     def __init__(self):
         self.model = Sequential()
@@ -20,13 +20,13 @@ class Model:
               optimizer='sgd',#adam
               metrics=['accuracy', 'mae']) #metrics=['mse','mae']
         
-    def Train(self, set):
+    def Train(self, set, epochs):
         #Fit
         data = set[0]
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, epochs=700, verbose = 2)#10 verbose = 2
+        history = self.model.fit(data, labels, epochs=epochs, verbose = 0)#10 verbose = 2
         return history
         
         #Train
