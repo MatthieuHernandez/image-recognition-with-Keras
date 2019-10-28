@@ -41,5 +41,5 @@ class ModelClassification:
         return score
 
 
-    #def Predict():
-    #    self.classes = self.model.predict(x_test, batch_size=128)
+    def Predict(self, x):
+        return self.model.predict(x)

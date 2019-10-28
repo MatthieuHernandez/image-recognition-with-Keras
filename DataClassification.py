@@ -3,31 +3,20 @@ from PIL import Image
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
 import glob
-import json
 import operator
 from operator import itemgetter
+from Data import *
 
 class Classification:
 
-    SpellLabels ={
-        "barrier":  0, # 180s
-        "cleanse":  1, # 210s
-        "exhaust":  2, # 210s
-        "flash":    3, # 300s
-        "ghost":    4, # 180s
-        "heal":     5, # 240s
-        "hexflash": 6, # 100s
-        "ignite":   7, # 180s
-        "smite":    8, # 100s # 100s at start and 90s after, big probelem game time needed
-        "teleport": 9, # 360s 
-    }
-
+    @staticmethod
     def LoadSet(folder):
         data = Classification.LoadData(folder)
         labels = Classification.LoadLabels(folder)
         values =(data, labels)
         return values
 
+    @staticmethod
     def LoadData(folder):
         set = []
         path = "dataset\\" + folder + "\\inputs\\*.png"
@@ -39,16 +28,17 @@ class Classification:
             set.append(data)
         return np.asarray(set)
 
+    @staticmethod
     def LoadLabels(folder):
-        path = "dataset\\" + folder + "\\labels.json"
-        with open(path, 'r') as file:
-            labels = json.load(file)  
+        labels = LoadJson(folder) 
         for key in labels :
             name = key.split('_')[0]
-            labels[key] = Classification.SpellLabels[name]
+            labels[key] = SpellLabels[name]
+            
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
         values = [x[1] for x in sorted_labels]
         return np.asarray(values)
+
 
 if __name__ == "__main__":
 

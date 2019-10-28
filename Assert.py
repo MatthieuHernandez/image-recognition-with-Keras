@@ -1,13 +1,13 @@
 
 def PrintAssertRegression(score, difficulty) :
-    if score < 1/360 : # Teleportation has a cooldown of 360 sencodes.
+    if score < 1/180 :
         successful(difficulty)
     else:
         fail(difficulty)
     print(difficulty + " test mean absolute error: ", score)
 
 def PrintAssertClassification(score, difficulty) :
-    if score > 0.98 : # Teleportation has a cooldown of 360 sencodes.
+    if score > 0.98 :
         successful(difficulty)
     else:
         fail(difficulty)

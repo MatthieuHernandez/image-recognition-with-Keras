@@ -3,11 +3,9 @@ from PIL import Image
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
 import glob
-import json
 import operator
 from operator import itemgetter
-
-file = "test.png"
+from Data import *
 
 class Regression:
 
@@ -23,24 +21,28 @@ class Regression:
         set = []
         path = "dataset\\" + folder + "\\inputs\\*.png"
         for filename in glob.glob(path):
-            img = mpimg.imread(filename)
-            #data = img
-            #data = img.flatten(order='C')
-            data = img.reshape(20, 20, 3)
+            img = mpimg.imread(filename)#.convert('LA')
+            img = Regression.__ConvertToGrayscale(img)
+            data = img.reshape(20, 20, 1)
             set.append(data)
         return np.asarray(set)
     
     @staticmethod
     def LoadLabels(folder):
-        path = "dataset\\" + folder + "\\labels.json"
-        with open(path, 'r') as file:
-            labels = json.load(file)
+        labels = LoadJson(folder)       
+        for key in labels :
+            name = key.split('_')[0]
+            labels[key] = labels[key] / SpellCooldowns[name]
+
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
-        values = [x[1]/360 for x in sorted_labels]
+        values = [x[1] for x in sorted_labels]
         return np.asarray(values)
+    
+    def __ConvertToGrayscale(image):
+        return np.dot(image[...,:3], [0.2989, 0.5870, 0.1140])
 
     @staticmethod
-    def ImageTest():
+    def __ImageTest():
         img = mpimg.imread(file)
         print(img)
         print(img.shape)

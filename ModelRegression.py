@@ -10,7 +10,7 @@ class ModelRegression:
 
     def Create(self):
         #Model
-        self.model.add(Conv2D(100, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
+        self.model.add(Conv2D(100, kernel_size=4, activation='relu', input_shape=(20, 20, 1)))
         self.model.add(Flatten())
         self.model.add(Dense(200, activation='tanh'))
         self.model.add(Dense(1, activation='sigmoid'))
@@ -41,5 +41,5 @@ class ModelRegression:
         return score
 
 
-    #def Predict():
-    #    self.classes = self.model.predict(x_test, batch_size=128)
+    def Predict(self, x):
+        return self.model.predict(x)
