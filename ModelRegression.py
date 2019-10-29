@@ -11,10 +11,11 @@ class ModelRegression:
 
     def Create(self):
         #Model
-        self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
+        #self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
+        #self.model.add(Dropout(0.5))
+        #self.model.add(Conv2D(8, kernel_size=4, activation='tanh', input_shape=(20, 20, 3)))
         self.model.add(Flatten())
-        self.model.add(Dense(100, activation='relu'))
-        self.model.add(Dense(100, activation='tanh'))
+        self.model.add(Dense(50, activation='tanh'))
         self.model.add(Dense(1, activation='sigmoid'))
 
         
@@ -22,7 +23,7 @@ class ModelRegression:
         #Compile
         if optimizer == 'sgd':
             self.model.compile(loss='mean_squared_error',
-                  optimizer=keras.optimizers.SGD(learning_rate=0.005, momentum=0.1, nesterov=True),
+                  optimizer=keras.optimizers.SGD(learning_rate=0.008, momentum=0.20, nesterov=True),
                   metrics=['mae'])
         else:
             self.model.compile(loss='mean_squared_error',
@@ -32,7 +33,7 @@ class ModelRegression:
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, epochs=epochs, verbose=verbose)
+        history = self.model.fit(data, labels, batch_size=2, epochs=epochs, verbose=verbose)
         return history
         
         #Train
