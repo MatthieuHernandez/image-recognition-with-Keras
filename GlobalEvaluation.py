@@ -43,7 +43,7 @@ def Evaluation(modelC, modelR, setC, setR, labels):
         inputs = setR[0][i].reshape(1, 20, 20, 1)
         percentageDuration = modelR.Predict(inputs)[0][0]
         result = round(duration * percentageDuration)
-        print(duration, " * ", percentageDuration, " = ", result, " = ", labels[i])
+        #print(duration, " * ", percentageDuration, " = ", result, " = ", labels[i])
         if result == labels[i] :
             well = well + 1
         else :
