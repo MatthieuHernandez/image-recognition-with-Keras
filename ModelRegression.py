@@ -11,9 +11,10 @@ class ModelRegression:
 
     def Create(self):
         #Model
-        self.model.add(Conv2D(32, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
+        self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         self.model.add(Flatten())
-        self.model.add(Dense(40, activation='tanh'))
+        self.model.add(Dense(200, activation='relu'))
+        self.model.add(Dense(800, activation='tanh'))
         self.model.add(Dense(1, activation='sigmoid'))
 
         
@@ -21,7 +22,7 @@ class ModelRegression:
         #Compile
         if optimizer == 'sgd':
             self.model.compile(loss='mean_squared_error',
-                  optimizer=keras.optimizers.SGD(learning_rate=0.015, momentum=0.2, nesterov=True),
+                  optimizer=keras.optimizers.SGD(learning_rate=0.005, momentum=0.1, nesterov=True),
                   metrics=['mae'])
         else:
             self.model.compile(loss='mean_squared_error',
