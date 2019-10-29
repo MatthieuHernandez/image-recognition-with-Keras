@@ -10,23 +10,22 @@ class ModelClassification:
 
     def Create(self):
         #Model
-        self.model.add(Dense(500, activation='tanh'))
-        self.model.add(Dense(100, activation='tanh'))
-        self.model.add(Dense(100, activation='tanh'))
+        self.model.add(Dense(150, activation='tanh'))
+        self.model.add(Dense(80, activation='tanh'))
         self.model.add(Dense(10, activation='sigmoid'))
 
+
+        
+    def Train(self, set, optimizer, epochs, verbose = 0):
         #Compile
         self.model.compile(loss='categorical_crossentropy',
-              optimizer='adam',#adam
+              optimizer=optimizer,
               metrics=['accuracy'])
-        
-    def Train(self, set, epochs):
-        #Fit
         data = set[0]
         #print(data.shape)
         labels = keras.utils.to_categorical(set[1], 10)
         #print(labels.shape)
-        history = self.model.fit(data, labels, epochs=epochs, verbose = 0)#10 verbose = 2
+        history = self.model.fit(data, labels, epochs=epochs, verbose=verbose)
         return history
         
         #Train

@@ -40,11 +40,11 @@ def Evaluation(modelC, modelR, setC, setR, labels):
         predictedClass = list(outputs).index(max(outputs))
         duration = Cooldowns[predictedClass]
 
-        inputs = setR[0][i].reshape(1, 20, 20, 1)
+        inputs = setR[0][i].reshape(1, 20, 20, 3)
         percentageDuration = modelR.Predict(inputs)[0][0]
         result = round(duration * percentageDuration)
         #print(duration, " * ", percentageDuration, " = ", result, " = ", labels[i])
-        if result == labels[i] :
+        if abs(result - labels[i]) < 10 :
             well = well + 1
         else :
             bad = bad + 1

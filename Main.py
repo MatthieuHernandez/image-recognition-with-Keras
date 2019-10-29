@@ -18,8 +18,9 @@ def TestClassification():
     model.Create()
     
     print("Training model for regression...")
-    
-    history = model.Train(trainSet, 1200) #1000
+
+    #history = model.Train(trainSet, 'sgd',  1000) #1000
+    history = model.Train(trainSet, 'adam', 1000, 0) #1000
     #PlotResult(history, "accuracy")
     
     print("Evaluating model for regression...")
@@ -45,8 +46,9 @@ def TestRegression():
     
     print("Training model for regression...")
     
-    history = model.Train(trainSet, 800) #3000
-    PlotResult(history, "mae")
+    history = model.Train(trainSet, 'adam', 200, 0) #3000
+    history = model.Train(trainSet, 'sgd', 200, 0) #3000
+    #PlotResult(history, "mae")
     print("Evaluating model for regression...")
 
     scoreTrain = model.Evaluate(trainSet)
@@ -69,5 +71,5 @@ if __name__ == "__main__":
     print("========================================================================")
     print("========================================================================")
     GlobalEvaluation(c, r)
-    print("Run in ", round(time.time() - start), "secondes")
+    print("Run in ",round(time.time() - start),"secondes")
     print("End")

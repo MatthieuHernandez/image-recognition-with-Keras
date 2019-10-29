@@ -21,9 +21,11 @@ class Regression:
         set = []
         path = "dataset\\" + folder + "\\inputs\\*.png"
         for filename in glob.glob(path):
-            img = mpimg.imread(filename)#.convert('LA')
-            img = Regression.__ConvertToGrayscale(img)
-            data = img.reshape(20, 20, 1)
+            img = mpimg.imread(filename)
+            #img = Regression.__ConvertToGrayscale(img)
+            #plt.imshow(img, cmap='gray')
+            #plt.show()
+            data = img.reshape(20, 20, 3)
             set.append(data)
         return np.asarray(set)
     

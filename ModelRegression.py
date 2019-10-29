@@ -1,5 +1,6 @@
 from keras.models import *
 from keras.layers import *
+from keras import regularizers
 import keras
 
 class ModelRegression:
@@ -10,24 +11,22 @@ class ModelRegression:
 
     def Create(self):
         #Model
-        self.model.add(Conv2D(32, kernel_size=3, activation='relu', input_shape=(20, 20, 1)))
+        self.model.add(Conv2D(32, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         self.model.add(Flatten())
         self.model.add(Dense(40, activation='tanh'))
-        #self.model.add(Dropout(0.5)) # remove 10%
         self.model.add(Dense(1, activation='sigmoid'))
 
+        
+    def Train(self, set, optimizer, epochs, verbose = 0):
         #Compile
         self.model.compile(loss='mean_squared_error',
-              optimizer='adam',#adam
+              optimizer=optimizer,
               metrics=['mae'])
-        
-    def Train(self, set, epochs):
-        #Fit
         data = set[0]
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, epochs=epochs, verbose = 2)#10 verbose = 2
+        history = self.model.fit(data, labels, epochs=epochs, verbose=verbose)
         return history
         
         #Train
