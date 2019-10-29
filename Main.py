@@ -18,7 +18,7 @@ def TestClassification():
     
     print("Training model for regression...")
     
-    history = model.Train(trainSet, 100) #1000
+    history = model.Train(trainSet, 1000) #1000
     #PlotResult(history, "accuracy")
     
     print("Evaluating model for regression...")
@@ -44,8 +44,8 @@ def TestRegression():
     
     print("Training model for regression...")
     
-    history = model.Train(trainSet, 200) # 3000
-    PlotResult(history, "mae")
+    history = model.Train(trainSet, 3000) # 3000
+    #PlotResult(history, "mae")
     print("Evaluating model for regression...")
 
     scoreTrain = model.Evaluate(trainSet)

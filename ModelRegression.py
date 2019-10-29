@@ -19,7 +19,7 @@ class ModelRegression:
         #Compile
         self.model.compile(loss='mean_squared_error',
               optimizer='adam',#adam
-              metrics=['mae']) #metrics=['mse','mae']
+              metrics=['mae'])
         
     def Train(self, set, epochs):
         #Fit
@@ -27,7 +27,7 @@ class ModelRegression:
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, epochs=epochs, verbose = 2)#10 verbose = 2
+        history = self.model.fit(data, labels, epochs=epochs, verbose = 0)#10 verbose = 2
         return history
         
         #Train

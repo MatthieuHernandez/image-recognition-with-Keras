@@ -21,12 +21,12 @@ def GlobalEvaluation(classification, Regression):
     labelsHard  = LoadLabels("test_hard")
 
     accuracyTrain = Evaluation(modelC, modelR, setTrainC, setTrainR, labelsTrain)
-    #accuracyEasy  = Evaluation(modelC, modelR, setEasyC,  setEasyR,  labelsEasy)
-    #accuracyHard  = Evaluation(modelC, modelR, setHardC,  setHardR,  labelsHard)
+    accuracyEasy  = Evaluation(modelC, modelR, setEasyC,  setEasyR,  labelsEasy)
+    accuracyHard  = Evaluation(modelC, modelR, setHardC,  setHardR,  labelsHard)
 
     PrintAssertClassification(accuracyTrain, "train")
-    #PrintAssertClassification(accuracyEasy,  "Easy")
-    #PrintAssertClassification(accuracyHard,  "Hard")
+    PrintAssertClassification(accuracyEasy,  "Easy")
+    PrintAssertClassification(accuracyHard,  "Hard")
 
 
 def Evaluation(modelC, modelR, setC, setR, labels):

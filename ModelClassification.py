@@ -17,8 +17,8 @@ class ModelClassification:
 
         #Compile
         self.model.compile(loss='categorical_crossentropy',
-              optimizer='sgd',#adam #sgd
-              metrics=['accuracy']) #metrics=['mse','mae']
+              optimizer='adam',#adam
+              metrics=['accuracy'])
         
     def Train(self, set, epochs):
         #Fit
