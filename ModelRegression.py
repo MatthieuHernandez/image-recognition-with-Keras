@@ -13,7 +13,7 @@ class ModelRegression:
         #Model
         self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         self.model.add(Flatten())
-        self.model.add(Dense(200, activation='relu'))
+        self.model.add(Dense(100, activation='relu'))
         self.model.add(Dense(100, activation='tanh'))
         self.model.add(Dense(1, activation='sigmoid'))
 

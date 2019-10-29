@@ -46,11 +46,11 @@ def TestRegression():
     
     print("Training model for regression...")
     
-    history = model.Train(trainSet, 'sgd', 30, 0) #3000 #200
+    history = model.Train(trainSet, 'sgd', 15, 0) #3000 #200
     #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'adam', 60, 0) #3000 #200
+    history = model.Train(trainSet, 'adam', 80, 0) #3000 #200
     #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'sgd', 30, 0) #3000 #200
+    history = model.Train(trainSet, 'sgd', 25, 0) #3000 #200
     #PlotResult(history, "mae")
     print("Evaluating model for regression...")
 
