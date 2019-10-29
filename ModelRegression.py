@@ -19,7 +19,12 @@ class ModelRegression:
         
     def Train(self, set, optimizer, epochs, verbose = 0):
         #Compile
-        self.model.compile(loss='mean_squared_error',
+        if optimizer == 'sgd':
+            self.model.compile(loss='mean_squared_error',
+                  optimizer=keras.optimizers.SGD(learning_rate=0.015, momentum=0.2, nesterov=True),
+                  metrics=['mae'])
+        else:
+            self.model.compile(loss='mean_squared_error',
               optimizer=optimizer,
               metrics=['mae'])
         data = set[0]

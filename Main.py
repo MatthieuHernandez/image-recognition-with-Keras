@@ -35,7 +35,7 @@ def TestClassification():
 
 
 def TestRegression():
-    trainSet    = Regression.LoadSet("train")
+    trainSet    = Regression.LoadSet("train", "train_fake")
     easyTestSet = Regression.LoadSet("test_easy")
     hardTestSet = Regression.LoadSet("test_hard")
 
@@ -46,9 +46,10 @@ def TestRegression():
     
     print("Training model for regression...")
     
-    history = model.Train(trainSet, 'adam', 200, 0) #3000
-    history = model.Train(trainSet, 'sgd', 200, 0) #3000
+    history = model.Train(trainSet, 'adam', 250, 0) #3000 #200
     #PlotResult(history, "mae")
+    history = model.Train(trainSet, 'sgd', 400, 0) #3000 #200
+    PlotResult(history, "mae")
     print("Evaluating model for regression...")
 
     scoreTrain = model.Evaluate(trainSet)
@@ -64,12 +65,12 @@ if __name__ == "__main__":
 
     print("Start")
     start = time.time()
-    c = TestClassification()
+    #c = TestClassification()
     print("========================================================================")
     print("========================================================================")
     r = TestRegression()
     print("========================================================================")
     print("========================================================================")
-    GlobalEvaluation(c, r)
+    #GlobalEvaluation(c, r)
     print("Run in ",round(time.time() - start),"secondes")
     print("End")
