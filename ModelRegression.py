@@ -12,7 +12,7 @@ class ModelRegression:
         #Model
         self.model.add(Conv2D(32, kernel_size=3, activation='relu', input_shape=(20, 20, 1)))
         self.model.add(Flatten())
-        self.model.add(Dense(100, activation='tanh'))
+        self.model.add(Dense(80, activation='tanh'))
         #self.model.add(Dropout(0.1)) # remove 10%
         self.model.add(Dense(1, activation='sigmoid'))
 
@@ -27,7 +27,7 @@ class ModelRegression:
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, epochs=epochs, verbose = 0)#10 verbose = 2
+        history = self.model.fit(data, labels, epochs=epochs, verbose = 2)#10 verbose = 2
         return history
         
         #Train

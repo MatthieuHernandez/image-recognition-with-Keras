@@ -5,6 +5,7 @@ from DataRegression import *
 from Plot import *
 from Assert import *
 from GlobalEvaluation import *
+import time
 
 def TestClassification():
     trainSet    = Classification.LoadSet("train")
@@ -44,8 +45,8 @@ def TestRegression():
     
     print("Training model for regression...")
     
-    history = model.Train(trainSet, 3000) # 3000
-    #PlotResult(history, "mae")
+    history = model.Train(trainSet, 900) # 3000
+    PlotResult(history, "mae")
     print("Evaluating model for regression...")
 
     scoreTrain = model.Evaluate(trainSet)
@@ -60,6 +61,7 @@ def TestRegression():
 if __name__ == "__main__":
 
     print("Start")
+    start = time.time()
     c = TestClassification()
     print("========================================================================")
     print("========================================================================")
