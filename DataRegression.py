@@ -22,16 +22,18 @@ class Regression:
         path = "dataset\\" + folder + "\\inputs\\*.png"
         for filename in glob.glob(path):
             img = mpimg.imread(filename)
-            #img = Regression.__ConvertToGrayscale(img)
+            img = Regression.__ConvertToGrayscale(img)
             #plt.imshow(img, cmap='gray')
             #plt.show()
-            data = img.reshape(20, 20, 3)
+            data = img.reshape(20, 20, 1)
+            #if folder != "train":###########
             set.append(data)
         if folder2 != "":
             path = "dataset\\" + folder2 + "\\*.png"
             for filename in glob.glob(path):
                 img = mpimg.imread(filename)
-                data = img.reshape(20, 20, 3)
+                img = Regression.__ConvertToGrayscale(img)
+                data = img.reshape(20, 20, 1)
                 set.append(data)
         return np.asarray(set)
     
@@ -47,11 +49,13 @@ class Regression:
             path = "dataset\\" + folder2 + "\\*.png"
             for filename in glob.glob(path):
                 label = filename.split('\\')[-1].split('_')[1].split('.')[0]
-                value = float(label)/100.0
+                value = float(label)/1000.0
                 values2.append(value)
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
         values = [x[1] for x in sorted_labels]
-        values = values + values2
+        values = values2 + values
+        #if folder == "train":###########
+        #    values = values2
         return np.asarray(values)
     
     def __ConvertToGrayscale(image):

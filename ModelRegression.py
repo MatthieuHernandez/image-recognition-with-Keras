@@ -13,9 +13,12 @@ class ModelRegression:
         #Model
         #self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         #self.model.add(Dropout(0.5))
-        #self.model.add(Conv2D(8, kernel_size=4, activation='tanh', input_shape=(20, 20, 3)))
+        self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 1)))
         self.model.add(Flatten())
-        self.model.add(Dense(50, activation='tanh'))
+        #self.model.add(Dense(50, activation='tanh')) #, kernel_regularizer=keras.regularizers.l2(0.01)
+        self.model.add(Dense(50, activation='relu'))
+        self.model.add(Dense(150, activation='tanh'))
+        #self.model.add(Dropout(0.2))
         self.model.add(Dense(1, activation='sigmoid'))
 
         
@@ -23,11 +26,11 @@ class ModelRegression:
         #Compile
         if optimizer == 'sgd':
             self.model.compile(loss='mean_squared_error',
-                  optimizer=keras.optimizers.SGD(learning_rate=0.008, momentum=0.20, nesterov=True),
+                  optimizer=keras.optimizers.SGD(learning_rate=0.004, momentum=0.1, nesterov=True),
                   metrics=['mae'])
-        else:
+        if optimizer == 'adam':
             self.model.compile(loss='mean_squared_error',
-              optimizer=optimizer,
+              optimizer='adadelta',
               metrics=['mae'])
         data = set[0]
         #print(data.shape)

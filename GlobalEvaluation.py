@@ -44,7 +44,7 @@ def Evaluation(modelC, modelR, setC, setR, labels):
         percentageDuration = modelR.Predict(inputs)[0][0]
         result = round(duration * percentageDuration)
         #print(duration, " * ", percentageDuration, " = ", result, " = ", labels[i])
-        if abs(result - labels[i]) < 10 :
+        if abs(result - labels[i]) <= 1 :
             well = well + 1
         else :
             bad = bad + 1
