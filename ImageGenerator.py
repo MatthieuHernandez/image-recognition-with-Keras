@@ -45,7 +45,7 @@ def AddLine(img):
     
 def ColorToWhite(img, x, y):
     for c in range(0,3):
-        img[y][x][c] = rand.uniform(0.95, 1)
+        img[y][x][c] = rand.uniform(0.90, 1)
 
 
 def Rotate(img, degree):
