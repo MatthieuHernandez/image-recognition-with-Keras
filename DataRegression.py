@@ -1,5 +1,4 @@
 import numpy as np
-from PIL import Image
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
 import glob
@@ -16,18 +15,15 @@ class Regression:
         for folder in folders:
   
             if folder == "train":
-                #labels = labels +
-                LoadJson(folder)
+                labels = np.concatenate((labels, Regression.__LoadJson(folder)), axis=None)
                 
             path = "dataset\\" + folder + "\\inputs\\*.png"
             for filename in glob.glob(path):
                 img = mpimg.imread(filename)
-                img = Regression.__ConvertToGrayscale(img)
+                #img = Regression.__ConvertToGrayscale(img)
 
-                #plt.figure('window title')
-                plt.imshow(img, cmap='gray')##
-
-                data = img.reshape(20, 20, 1)
+                data = img.reshape(20, 20, 3)
+                #imgFlat = img.flatten(order='C')
                 inputs.append(data)
                 
                 if folder != "train":
@@ -35,64 +31,33 @@ class Regression:
                     name = filename.split('_')[0]
                     value = filename.split('_')[1].split('.')[0]
                     if "fake" in folder:
-                        label = float(value)/1000.0
+                        label = float(value) / 1000.0
                     else:
-                        label = float(value) / SpellCooldowns[name]
-                    labels.append(label)
-
-                plt.show()
+                        label = float(value) / 100.0 #SpellCooldowns[name] WRONG
+                    labels = np.concatenate((labels, [label]), axis=None)
 
         return (np.asarray(inputs), np.asarray(labels))
     
     @staticmethod
-    def LoadJson(folder):
-        print("a")
-        labels = LoadJson("dataset\\" + folder + "\\labels.json")       
+    def __LoadJson(folder):
+        path = "dataset\\" + folder + "\\labels.json"
+        labels = LoadJson(folder)
         for key in labels :
             name = key.split('_')[0]
-            labels[key] = labels[key] / SpellCooldowns[name]
+            labels[key] = labels[key] / 100.0 #SpellCooldowns[name] WRONG
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
         values = [x[1] for x in sorted_labels]
-        print("b")
-        return values
-    
-        '''values2 = []  
-        if folder2 != "":
-            path = "dataset\\" + folder2 + "\\*.png"
-            for filename in glob.glob(path):
-                label = filename.split('\\')[-1].split('_')[1].split('.')[0]
-                value = float(label)/1000.0
-                values2.append(value)
-        sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
-        
-        values = values2 + values
-        #if folder == "train":###########
-        #    values = values2
-        return np.asarray(values)'''
-    
+        result = np.array(values)
+        print(result)
+        return result
+   
     def __ConvertToGrayscale(image):
         return np.dot(image[...,:3], [0.2989, 0.5870, 0.1140])
 
-    @staticmethod
-    def __ImageTest():
-        img = mpimg.imread("train_fake//inputs//black125.png")
-        #print(img)
-        #print(img.shape)
-        plt.imshow(img) # 20 *20 * 3
-        imgFlat = img.flatten(order='C')
-        #print(imgFlat) # 1 * 1200
-        #plt.show()
-
-showData
-for earch
-image[0]
-label as title
 
 if __name__ == "__main__":
-
-    print("Start")  
-    #ImageTest()
+    print("Start")
+    
     trainSet = Regression.LoadSet(["train", "train_fake", "test_hard"])
-    showData(trainSet)
-    print(trainSet)
+
     print("End")
