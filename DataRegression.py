@@ -19,7 +19,7 @@ class Regression:
                 
             path = "dataset\\" + folder + "\\inputs\\*.png"
             for filename in glob.glob(path):
-                img = mpimg.imread(filename)
+                img = mpimg.imread(filename)[:,:,:3]
                 #img = Regression.__ConvertToGrayscale(img)
 
                 data = img.reshape(20, 20, 3)
@@ -57,6 +57,6 @@ class Regression:
 if __name__ == "__main__":
     print("Start")
     
-    trainSet = Regression.LoadSet(["train", "train_fake", "test_hard"])
+    trainSet = Regression.LoadSet(["train", "train_fake", "test_hard", "train_auto-generated"])
 
     print("End")

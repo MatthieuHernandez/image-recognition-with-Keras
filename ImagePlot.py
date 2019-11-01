@@ -43,8 +43,9 @@ if __name__ == "__main__":
     print("Start")
     
     #trainSet = Regression.LoadSet(["train", "train_fake", "test_hard"])
-    trainSet = Regression.LoadSet(["test_hard"])
-    
+    trainSet = Regression.LoadSet(["train_auto-generated"])
+    print(trainSet[1])
+    #trainSet = Regression.LoadSet(["train"])
     displaySet(trainSet)
 
     print("End")
