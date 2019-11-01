@@ -41,7 +41,7 @@ def Evaluation(modelC, modelR, setC, setR, labels):
         duration = Cooldowns[predictedClass]
 
         inputs = setR[0][i].reshape(1, 20, 20, 3)
-        percentageDuration = modelR.Predict(inputs)[0][0]
+        #percentageDuration = modelR.Predict(inputs)[0][0]
         result = round(duration * percentageDuration)
         #print(duration, " * ", percentageDuration, " = ", result, " = ", labels[i])
         if abs(result - labels[i]) <= 1 :

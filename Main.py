@@ -8,9 +8,9 @@ from GlobalEvaluation import *
 import time
 
 def TestClassification():
-    trainSet    = Classification.LoadSet("train")
-    easyTestSet = Classification.LoadSet("test_easy")
-    hardTestSet = Classification.LoadSet("test_hard")
+    trainSet    = Classification.LoadSet(["train"])
+    easyTestSet = Classification.LoadSet(["test_easy"])
+    hardTestSet = Classification.LoadSet(["test_hard"])
 
     print("Creation model for regression...")
     
@@ -35,9 +35,9 @@ def TestClassification():
 
 
 def TestRegression():
-    trainSet    = Regression.LoadSet("train", "train_fake")
-    easyTestSet = Regression.LoadSet("test_easy")
-    hardTestSet = Regression.LoadSet("test_hard")
+    trainSet    = Regression.LoadSet(["train", "train_fake"])
+    easyTestSet = Regression.LoadSet(["test_easy"])
+    hardTestSet = Regression.LoadSet(["test_hard"])
 
     print("Creation model for regression...")
     
@@ -46,12 +46,12 @@ def TestRegression():
     
     print("Training model for regression...")
     
-    #history = model.Train(trainSet, 'sgd', 35, 0) #3000 #200
+    history = model.Train(trainSet, 'sgd', 35, 0) #3000 #200
     #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'adam', 800, 2) #3000 #200
+    history = model.Train(trainSet, 'adam', 300, 2) #3000 #200
     #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'sgd', 3000, 2) #3000 #200
-    PlotResult(history, "mae")
+    history = model.Train(trainSet, 'sgd', 200, 2) #3000 #200
+    #PlotResult(history, "mae")
     print("Evaluating model for regression...")
 
     scoreTrain = model.Evaluate(trainSet)

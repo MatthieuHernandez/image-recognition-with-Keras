@@ -10,8 +10,8 @@ class ModelRegression:
 
 
     def Create(self):
-        '''#Model
-        #self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
+        #Model
+        '''#self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         #self.model.add(Dropout(0.5))
         self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 1)))
         self.model.add(Flatten())
@@ -21,7 +21,7 @@ class ModelRegression:
         #self.model.add(Dropout(0.2))
         self.model.add(Dense(1, activation='sigmoid'))'''
 
-        self.model.add(Conv2D(32, kernel_size=4, activation='relu', input_shape=(20, 20, 1)))
+        self.model.add(Conv2D(32, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Conv2D(64, kernel_size=5, activation='tanh'))
         self.model.add(MaxPooling2D(pool_size=(2, 2)))

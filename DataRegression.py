@@ -48,7 +48,6 @@ class Regression:
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
         values = [x[1] for x in sorted_labels]
         result = np.array(values)
-        print(result)
         return result
    
     def __ConvertToGrayscale(image):
