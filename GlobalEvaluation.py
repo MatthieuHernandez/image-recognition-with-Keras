@@ -30,7 +30,7 @@ def Evaluation(model, setR, labels):
     well = 0
     bad = 0
     for i in range(0, len(setR[0])):
-        #inputs = setR[0][i].reshape(1, 20, 20, 3)
+        inputs = setR[0][i].reshape(1, 20, 20, 3)
         result = model.Predict(inputs)[0][0]
         #print(result, " = ", labels[i])
         if abs(result - labels[i]) < 30 :
