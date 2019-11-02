@@ -11,7 +11,7 @@ def PrintAssertClassification(score, difficulty) :
         successful(difficulty)
     else:
         fail(difficulty)
-    print(difficulty + " test accuracy: ", score)
+    print(difficulty + " test accuracy: ", score*100, "%")
 
 
 def successful(difficulty):
@@ -20,6 +20,6 @@ def successful(difficulty):
     print("==============================")
 
 def fail(difficulty):
-        print("==============================")
-        print("======= " + difficulty.upper() + " TEST FAIL =======")
-        print("==============================")
+    print("==============================")
+    print("======= " + difficulty.upper() + " TEST FAIL =======")
+    print("==============================")
