@@ -35,7 +35,7 @@ import time
 
 
 def TestRegression():
-    trainSet    = Regression.LoadSet(["train"])
+    trainSet    = Regression.LoadSet(["train", "train_auto-generated"])
     #easyTestSet = Regression.LoadSet(["test_easy"])
     #hardTestSet = Regression.LoadSet(["test_hard"])
 
@@ -46,18 +46,18 @@ def TestRegression():
     
     print("Training model for regression...")
     
-    #history = model.Train(trainSet, 'sgd', 35, 0) #3000 #200
+    #history = model.Train(trainSet, 'sgd', 35, 2) #3000 #200
     #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'adam', 100, 2) #3000 #200
+    history = model.Train(trainSet, 'adam', 200, 2) #3000 #200
     #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'sgd', 10, 2) #3000 #200
+    history = model.Train(trainSet, 'sgd', 100, 2) #3000 #200
     #PlotResult(history, "mae")
     print("Evaluating model for regression...")
 
     scoreTrain = model.Evaluate(trainSet)
     #scoreEasy = model.Evaluate(easyTestSet)
     #scoreHard = model.Evaluate(hardTestSet)
-    PrintAssertRegression(scoreTrain[1], "Train")
+    #PrintAssertRegression(scoreTrain[1], "Train")
     #PrintAssertRegression(scoreEasy[1], "Easy")
     #PrintAssertRegression(scoreHard[1], "Hard")
     return model
