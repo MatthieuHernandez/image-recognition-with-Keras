@@ -6,16 +6,18 @@ from matplotlib import transforms as tf
 import os
 import glob
 
+
 def GenerateImages(folder):
     
+    adjustedAngle = 1.025
     path =  "dataset\\" + folder + "\\inputs\\"
     CleanFolder(path)
     for n in range(0, 1):
-        for angle in range(0, 100):
+        for angle in range(0, (int)(100/adjustedAngle)):
             img = CreateImage()
             AddNoise(img)
             AddLine(img)
-            img = Rotate(img, angle * 3.6)
+            img = Rotate(img, angle * 3.6 * adjustedAngle)
             AddLine(img)
             img = Resize(img)
             Save(img, path + "img_" + str('{0:02d}'.format(angle)) + "_" + str(n) + ".png")
