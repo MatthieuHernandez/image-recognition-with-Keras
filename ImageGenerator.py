@@ -35,7 +35,7 @@ def AddNoise(img):
     for x in range(0, 40):
         for y in range(0,40):
             for c in range(0,3):
-                img[y][x][c] = rand.uniform(0.0, 0.9)
+                img[y][x][c] = rand.uniform(0.2, 1)
 
 
 def AddLine(img):
@@ -45,7 +45,7 @@ def AddLine(img):
     
 def ColorToWhite(img, x, y):
     for c in range(0,3):
-        img[y][x][c] = rand.uniform(0.90, 1)
+        img[y][x][c] = rand.uniform(0.98, 1)
 
 
 def Rotate(img, degree):

@@ -41,7 +41,7 @@ def TestRegression():
 
     print("Creation model for regression...")
     
-    model = ModelRegression() 
+    model = ModelRegression()
     model.Create()
     
     print("Training model for regression...")
@@ -50,7 +50,7 @@ def TestRegression():
     #PlotResult(history, "mae")
     history = model.Train(trainSet, 'adam', 200, 2) #3000 #200
     #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'sgd', 100, 2) #3000 #200
+    #history = model.Train(trainSet, 'sgd', 100, 2) #3000 #200
     #PlotResult(history, "mae")
     print("Evaluating model for regression...")
 
@@ -72,5 +72,5 @@ if __name__ == "__main__":
     print("========================================================================")
     print("========================================================================")
     GlobalEvaluation(model)
-    print("Run in ",round(time.time() - start),"secondes")
+    print("Run in",round(time.time() - start),"secondes")
     print("End")

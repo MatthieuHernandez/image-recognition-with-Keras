@@ -5,6 +5,7 @@ import glob
 import operator
 from operator import itemgetter
 from Data import *
+from ImageModifier import *
 
 class Regression:
 
@@ -20,10 +21,11 @@ class Regression:
             path = "dataset\\" + folder + "\\inputs\\*.png"
             for filename in glob.glob(path):
                 img = mpimg.imread(filename)[:,:,:3]
-                #img = Regression.__ConvertToGrayscale(img)
-
-                data = img.reshape(20, 20, 3)
-                #imgFlat = img.flatten(order='C')
+                
+                #img = ConvertToGrayscale(img)
+                #ConvertToGrayscale(img)
+                data = Modify(img)
+                #data = img.flatten(order='C')
                 inputs.append(data)
                 
                 if folder != "train":
@@ -49,9 +51,7 @@ class Regression:
         values = [x[1] for x in sorted_labels]
         result = np.array(values)
         return result
-   
-    def __ConvertToGrayscale(image):
-        return np.dot(image[...,:3], [0.2989, 0.5870, 0.1140])
+        
 
 
 if __name__ == "__main__":

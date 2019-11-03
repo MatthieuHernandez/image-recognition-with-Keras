@@ -22,7 +22,7 @@ class Index(object):
 
     def __execute(self):
         ax.set_title(self.dataSet[1][self.index])
-        ax.imshow(self.dataSet[0][self.index])
+        ax.imshow(self.dataSet[0][self.index].reshape(20, 20), cmap='gray')
         plt.draw()
 
         
@@ -42,10 +42,9 @@ def displaySet(dataSet):
 if __name__ == "__main__":
     print("Start")
     
-    #trainSet = Regression.LoadSet(["train", "train_fake", "test_hard"])
-    setToDisplay = Regression.LoadSet(["train"]) #"train_auto-generated"
-    print(setToDisplay[0])
-    print(setToDisplay[1])
+    #trainSet = Regression.LoadSet(["train", "train_fake", "test_hard", "train_auto-generated"])
+    setToDisplay = Regression.LoadSet(["train_auto-generated"])
+
     #trainSet = Regression.LoadSet(["train"])
     displaySet(setToDisplay)
 
