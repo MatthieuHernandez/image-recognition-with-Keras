@@ -18,24 +18,25 @@ def GlobalEvaluation(model):
 
     accuracyTrain = Evaluation(model, trainSet,     labelsTrain)
     accuracyEasy  = Evaluation(model, easyTestSet,  labelsEasy)
-    accuracyHard  = Evaluation(model, hardTestSet,  labelsHard)
+    accuracyHard  = Evaluation(model, hardTestSet,  labelsHard, True)
 
     PrintAssertClassification(accuracyTrain, "train")
     PrintAssertClassification(accuracyEasy,  "Easy")
     PrintAssertClassification(accuracyHard,  "Hard")
 
 
-def Evaluation(model, setR, labels):
+def Evaluation(model, setR, labels, printErrors = False):
 
     well = 0
     bad = 0
     for i in range(0, len(setR[0])):
         inputs = setR[0][i].reshape(1, 20, 20, 1)
-        result = model.Predict(inputs)[0][0] * 100
-        #print(result, "=", labels[i])
-        if abs(result - labels[i]) < 2 :
+        result = model.Predict(inputs)[0][0] * 100     
+        if abs(result - labels[i]) < 20 : #2
             well = well + 1
         else :
+            if printErrors:
+                print("{0:02f}".format(result), "=", labels[i], "    index=", i)
             bad = bad + 1
     accuracy = well/(well+bad)
     return accuracy

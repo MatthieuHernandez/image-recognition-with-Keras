@@ -29,13 +29,15 @@ class ModelRegression:
 
         #Complexe Model
 
-        self.model.add(MaxPooling2D(pool_size=(1, 4)))
-        self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
+        self.model.add(Conv2D(1, kernel_size=4, padding='same', activation='relu', input_shape=(20, 20, 1),
+                              use_bias=True, bias_initializer='Zeros'))
+        #self.model.add(Dropout(0.1))
         #self.model.add(MaxPooling2D(pool_size=(10, 10)))
         #self.model.add(Conv2D(64, kernel_size=5, activation='tanh'))
         #self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Flatten())
-        self.model.add(Dense(10, activation='tanh'))
+        self.model.add(Dense(5, activation='tanh'))
+        #self.model.add(Dropout(0.5))
         self.model.add(Dense(1, activation='sigmoid'))
         
     def Train(self, set, optimizer, epochs, verbose = 0):
@@ -52,7 +54,7 @@ class ModelRegression:
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, batch_size=2, epochs=epochs, verbose=verbose)
+        history = self.model.fit(data, labels, batch_size=32, epochs=epochs, verbose=verbose)
         return history
         
         #Train

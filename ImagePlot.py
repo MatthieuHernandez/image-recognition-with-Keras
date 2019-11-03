@@ -21,7 +21,7 @@ class Index(object):
         self.__execute()
 
     def __execute(self):
-        ax.set_title(self.dataSet[1][self.index])
+        ax.set_title("{0}    index={1}".format(self.dataSet[1][self.index], self.index))
         ax.imshow(self.dataSet[0][self.index].reshape(20, 20), cmap='gray')
         plt.draw()
 

@@ -9,15 +9,15 @@ import glob
 
 def GenerateImages(folder):
     
-    adjustedAngle = 1.025
+    adjustedAngle = 1.00
     path =  "dataset\\" + folder + "\\inputs\\"
     CleanFolder(path)
-    for n in range(0, 1):
-        for angle in range(0, (int)(100/adjustedAngle)):
+    for n in range(0, 6):
+        for angle in range(0, (int)(95/adjustedAngle)):
             img = CreateImage()
             AddNoise(img)
             AddLine(img)
-            img = Rotate(img, angle * 3.6 * adjustedAngle)
+            img = Rotate(img, (angle+rand.uniform(0.75, 1.25)) * 3.7895 * adjustedAngle) # 360/95
             AddLine(img)
             img = Resize(img)
             Save(img, path + "img_" + str('{0:02d}'.format(angle)) + "_" + str(n) + ".png")
