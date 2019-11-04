@@ -16,14 +16,13 @@ class Regression:
         for folder in folders:
   
             if folder == "train":
-                labels = np.concatenate((labels, Regression.__LoadJson(folder)), axis=None)
+                labels.append(Regression.__LoadJson(folder))
                 
             path = "dataset\\" + folder + "\\inputs\\*.png"
             for filename in glob.glob(path):
                 img = mpimg.imread(filename)[:,:,:3]
                 
                 data = Modify(img)
-                #data = img.flatten(order='C')
                 inputs.append(data)
                 
                 if folder != "train":
@@ -34,7 +33,7 @@ class Regression:
                         label = float(value) / 1000.0
                     else:
                         label = float(value) / 100.0 #SpellCooldowns[name] WRONG
-                    labels = np.concatenate((labels, [label]), axis=None)
+                    labels.append(label)
 
         return (np.asarray(inputs), np.asarray(labels))
     

@@ -7,7 +7,7 @@ from operator import itemgetter
 from Data import *
 from ImageModifier import *
 
-class Regression:
+class Regression2:
 
     @staticmethod
     def LoadSet(folders):
@@ -16,14 +16,13 @@ class Regression:
         for folder in folders:
   
             if folder == "train":
-                labels = np.concatenate((labels, Regression.__LoadJson(folder)), axis=None)
+                labels.append(Regression2.__LoadJson(folder))
                 
             path = "dataset\\" + folder + "\\inputs\\*.png"
             for filename in glob.glob(path):
                 img = mpimg.imread(filename)[:,:,:3]
                 
                 data = Modify(img)
-                #data = img.flatten(order='C')
                 inputs.append(data)
                 
                 if folder != "train":
@@ -33,9 +32,10 @@ class Regression:
 
                     label = np.zeros(100)
                     label[int(value)] = 1
-                    labels = np.concatenate((labels, [label]), axis=None)
-
-        return (np.asarray(inputs), np.asarray(labels))
+                    labels.append(label)
+                    a = np.asarray(inputs)
+                    b = np.vstack(labels)
+        return (a, b)
     
     @staticmethod
     def __LoadJson(folder):
@@ -47,14 +47,13 @@ class Regression:
             label = np.zeros(100)
             label[line[1]] = 1
             labels.append(label)
-        labels = np.array(labels)
-        return labels
+        return np.asarray(labels)
         
 
 
 if __name__ == "__main__":
     print("Start")
     
-    trainSet = Regression.LoadSet(["train", "test_hard", "train_auto-generated"])
+    trainSet = Regression2.LoadSet(["train", "test_hard", "train_auto-generated"])
 
     print("End")

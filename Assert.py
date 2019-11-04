@@ -6,6 +6,13 @@ def PrintAssertRegression(score, difficulty) :
         fail(difficulty)
     print(difficulty + " test mean absolute error: ", score)
 
+def PrintAssertRegression2(score, difficulty) :
+    if score < 1/180 :
+        successful(difficulty)
+    else:
+        fail(difficulty)
+    print(difficulty + " accuracy: ", score)
+
 def PrintAssertClassification(score, difficulty) :
     if score > 0.98 :
         successful(difficulty)

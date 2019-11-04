@@ -7,6 +7,7 @@ from DataClassification import *
 from Plot import *
 from Assert import *
 from GlobalEvaluation import *
+from GlobalEvaluation2 import *
 import time
 
 '''def TestClassification():
@@ -37,13 +38,13 @@ import time
 
 
 def TestRegression():
-    trainSet    = Regression.LoadSet(["train", "train_auto-generated"])
-    #easyTestSet = Regression.LoadSet(["test_easy"])
-    #hardTestSet = Regression.LoadSet(["test_hard"])
+    trainSet    = Regression2.LoadSet(["train", "train_auto-generated"])
+    easyTestSet = Regression2.LoadSet(["test_easy"])
+    hardTestSet = Regression2.LoadSet(["test_hard"])
 
     print("Creation model for regression...")
     
-    model = ModelRegression()
+    model = ModelRegression2()
     model.Create()
     
     print("Training model for regression...")
@@ -51,17 +52,18 @@ def TestRegression():
     #history = model.Train(trainSet, 'sgd', 35, 2) #3000 #200
     #PlotResult(history, "mae")
     history = model.Train(trainSet, 'adam', 200, 2) #3000 #200
-    #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'sgd', 50, 2) #3000 #200
-    #PlotResult(history, "mae")
+    #PlotResult(history, 'accuracy')
+    history = model.Train(trainSet, 'sgd', 40, 2) #3000 #200
+    #PlotResult(history, 'accuracy')
     print("Evaluating model for regression...")
-
+    
     scoreTrain = model.Evaluate(trainSet)
-    #scoreEasy = model.Evaluate(easyTestSet)
-    #scoreHard = model.Evaluate(hardTestSet)
-    #PrintAssertRegression(scoreTrain[1], "Train")
-    #PrintAssertRegression(scoreEasy[1], "Easy")
-    #PrintAssertRegression(scoreHard[1], "Hard")
+    scoreEasy = model.Evaluate(easyTestSet)
+    scoreHard = model.Evaluate(hardTestSet)
+    
+    PrintAssertRegression2(scoreTrain[1], "Train")
+    PrintAssertRegression2(scoreEasy[1], "Easy")
+    PrintAssertRegression2(scoreHard[1], "Hard")
     return model
 
 
@@ -73,6 +75,6 @@ if __name__ == "__main__":
     model = TestRegression()
     print("========================================================================")
     print("========================================================================")
-    GlobalEvaluation(model)
+    GlobalEvaluation2(model)
     print("Run in",round(time.time() - start),"secondes")
     print("End")
