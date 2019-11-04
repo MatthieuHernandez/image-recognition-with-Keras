@@ -51,9 +51,9 @@ def TestRegression():
     
     #history = model.Train(trainSet, 'sgd', 35, 2) #3000 #200
     #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'adam', 200, 2) #3000 #200
+    history = model.Train(trainSet, 'adam', 50, 2) #3000 #200
     #PlotResult(history, 'accuracy')
-    history = model.Train(trainSet, 'sgd', 40, 2) #3000 #200
+    history = model.Train(trainSet, 'sgd', 25, 2) #3000 #200
     #PlotResult(history, 'accuracy')
     print("Evaluating model for regression...")
     
