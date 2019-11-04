@@ -13,7 +13,12 @@ class ModelRegression:
         
         #Simple Model
         
-        '''#self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
+        '''
+        
+        toto = [[-1,-1,-1],
+                [-1, 8,-1],
+                [-1,-1,-1]]
+        #self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         #self.model.add(Dropout(0.5))
         #self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         #self.model.add(Flatten())
@@ -28,15 +33,16 @@ class ModelRegression:
         self.model.add(Dense(1, activation='sigmoid'))'''
 
         #Complexe Model
-
-        self.model.add(Conv2D(1, kernel_size=4, padding='same', activation='relu', input_shape=(20, 20, 1),
-                              use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)))
+        #self.model.add(SeparableConv2D(1, kernel_size=2, activation='relu', input_shape=(20, 20, 1),))
+        self.model.add(Conv2D(1, kernel_size=16, padding='same', activation='relu', #input_shape=(20, 20, 1),
+                              use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+                              ))
         #self.model.add(Dropout(0.1))
         #self.model.add(MaxPooling2D(pool_size=(10, 10)))
         #self.model.add(Conv2D(64, kernel_size=5, activation='tanh'))
-        #self.model.add(MaxPooling2D(pool_size=(2, 2)))
+        self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Flatten())
-        self.model.add(Dense(5, activation='tanh'))
+        self.model.add(Dense(30, activation='sigmoid'))
         #self.model.add(Dropout(0.5))
         self.model.add(Dense(1, activation='sigmoid'))
         

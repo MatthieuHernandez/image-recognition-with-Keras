@@ -5,7 +5,7 @@ import matplotlib.image as mpimg
 from matplotlib import transforms as tf
 import os
 import glob
-
+from ImageModifier import * 
 
 def GenerateImages(folder):
     
@@ -20,6 +20,7 @@ def GenerateImages(folder):
             img = Rotate(img, (angle+rand.uniform(0.75, 1.25)) * 3.7895 * adjustedAngle) # 360/95
             AddLine(img)
             img = Resize(img)
+            img = CahngeContrast(img, rand.uniform(1.2, 1.35))
             Save(img, path + "img_" + str('{0:02d}'.format(angle)) + "_" + str(n) + ".png")
             
             
@@ -37,7 +38,7 @@ def AddNoise(img):
     for x in range(0, 40):
         for y in range(0,40):
             for c in range(0,3):
-                img[y][x][c] = rand.uniform(0.2, 1)
+                img[y][x][c] = rand.uniform(0.2, 0.9)
 
 
 def AddLine(img):
