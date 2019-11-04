@@ -30,30 +30,31 @@ class Regression:
                     filename = filename.split('\\')[-1]
                     name = filename.split('_')[0]
                     value = filename.split('_')[1].split('.')[0]
-                    if "fake" in folder:
-                        label = float(value) / 1000.0
-                    else:
-                        label = float(value) / 100.0 #SpellCooldowns[name] WRONG
+
+                    label = np.zeros(100)
+                    label[int(value)] = 1
                     labels = np.concatenate((labels, [label]), axis=None)
 
         return (np.asarray(inputs), np.asarray(labels))
     
     @staticmethod
     def __LoadJson(folder):
+        labels = []
         path = "dataset\\" + folder + "\\labels.json"
-        labels = LoadJson(folder)
-        for key in labels :
-            labels[key] = labels[key] / 100.0 #SpellCooldowns[name] WRONG
-        sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
-        values = [x[1] for x in sorted_labels]
-        result = np.array(values)
-        return result
+        lines = LoadJson(folder)
+        lines = sorted(lines.items(), key=operator.itemgetter(0))
+        for line in lines :
+            label = np.zeros(100)
+            label[line[1]] = 1
+            labels.append(label)
+        labels = np.array(labels)
+        return labels
         
 
 
 if __name__ == "__main__":
     print("Start")
     
-    trainSet = Regression.LoadSet(["train", "train_fake", "test_hard", "train_auto-generated"])
+    trainSet = Regression.LoadSet(["train", "test_hard", "train_auto-generated"])
 
     print("End")
