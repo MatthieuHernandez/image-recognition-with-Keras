@@ -34,15 +34,15 @@ class ModelRegression:
 
         #Complexe Model
         #self.model.add(SeparableConv2D(1, kernel_size=2, activation='relu', input_shape=(20, 20, 1),))
-        self.model.add(Conv2D(1, kernel_size=16, padding='same', activation='relu', #input_shape=(20, 20, 1),
+        self.model.add(Conv2D(1, kernel_size=12, padding='same', activation='relu', #input_shape=(20, 20, 1),
                               use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
                               ))
         #self.model.add(Dropout(0.1))
         #self.model.add(MaxPooling2D(pool_size=(10, 10)))
         #self.model.add(Conv2D(64, kernel_size=5, activation='tanh'))
-        self.model.add(MaxPooling2D(pool_size=(2, 2)))
+        #self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Flatten())
-        self.model.add(Dense(30, activation='sigmoid'))
+        self.model.add(Dense(5, activation='sigmoid'))
         #self.model.add(Dropout(0.5))
         self.model.add(Dense(1, activation='sigmoid'))
         
@@ -50,7 +50,7 @@ class ModelRegression:
         #Compile
         if optimizer == 'sgd':
             self.model.compile(loss='mean_squared_error',
-                  optimizer=keras.optimizers.SGD(learning_rate=0.01, momentum=0.5, nesterov=True),
+                  optimizer=keras.optimizers.SGD(learning_rate=0.01, momentum=0.7, nesterov=False),
                   metrics=['mae'])
         if optimizer == 'adam':
             self.model.compile(loss='mean_squared_error',
@@ -60,7 +60,7 @@ class ModelRegression:
         #print(data.shape)
         labels = set[1]
         #print(labels.shape)
-        history = self.model.fit(data, labels, batch_size=32, epochs=epochs, verbose=verbose)
+        history = self.model.fit(data, labels, batch_size=16, epochs=epochs, verbose=verbose)
         return history
         
         #Train

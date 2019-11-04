@@ -3,9 +3,9 @@ import numpy as np
 def Modify(img):
     img = RemoveSmallValues(img, 0.80)
     img = ConvertToGrayscale(img)
-    #img = CahngeBrightness(img, 0.71)
-    #img = CahngeContrast(img, 2.85)
-    #img = RemoveSmallValues(img, 0.975)
+    img = CahngeBrightness(img, 0.71)
+    img = CahngeContrast(img, 2.85)
+    img = RemoveSmallValues(img, 0.975)
     return img
 
 def ConvertToGrayscale(img):

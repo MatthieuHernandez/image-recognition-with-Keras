@@ -12,7 +12,7 @@ def GenerateImages(folder):
     adjustedAngle = 1.00
     path =  "dataset\\" + folder + "\\inputs\\"
     CleanFolder(path)
-    for n in range(0, 6):
+    for n in range(0, 4):
         for angle in range(0, (int)(95/adjustedAngle)):
             img = CreateImage()
             AddNoise(img)
