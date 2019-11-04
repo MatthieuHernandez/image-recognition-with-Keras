@@ -9,15 +9,14 @@ from ImageModifier import *
 
 def GenerateImages(folder):
     
-    adjustedAngle = 1.00
     path =  "dataset\\" + folder + "\\inputs\\"
     CleanFolder(path)
     for n in range(0, 4):
-        for angle in range(0, (int)(95/adjustedAngle)):
+        for angle in range(0, 100):
             img = CreateImage()
             AddNoise(img)
             AddLine(img)
-            img = Rotate(img, (angle+rand.uniform(0.75, 1.25)) * 3.7895 * adjustedAngle) # 360/95
+            img = Rotate(img, angle * 3.6)
             AddLine(img)
             img = Resize(img)
             img = CahngeContrast(img, rand.uniform(1.2, 1.35))
