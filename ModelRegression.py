@@ -14,10 +14,6 @@ class ModelRegression:
         #Simple Model
         
         '''
-        
-        toto = [[-1,-1,-1],
-                [-1, 8,-1],
-                [-1,-1,-1]]
         #self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         #self.model.add(Dropout(0.5))
         #self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))

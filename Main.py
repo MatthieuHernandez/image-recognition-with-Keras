@@ -38,13 +38,13 @@ import time
 
 
 def TestRegression():
-    trainSet    = Regression2.LoadSet(["train", "train_auto-generated"])
-    easyTestSet = Regression2.LoadSet(["test_easy"])
-    hardTestSet = Regression2.LoadSet(["test_hard"])
+    trainSet    = Regression.LoadSet(["train", "train_auto-generated"])#2
+    easyTestSet = Regression.LoadSet(["test_easy"])#2
+    hardTestSet = Regression.LoadSet(["test_hard"])#2
 
     print("Creation model for regression...")
     
-    model = ModelRegression2()
+    model = ModelRegression()#2
     model.Create()
     
     print("Training model for regression...")
@@ -61,9 +61,9 @@ def TestRegression():
     scoreEasy = model.Evaluate(easyTestSet)
     scoreHard = model.Evaluate(hardTestSet)
     
-    PrintAssertRegression2(scoreTrain[1], "Train")
-    PrintAssertRegression2(scoreEasy[1], "Easy")
-    PrintAssertRegression2(scoreHard[1], "Hard")
+    PrintAssertRegression(scoreTrain[1], "Train")#2
+    PrintAssertRegression(scoreEasy[1], "Easy")#2
+    PrintAssertRegression(scoreHard[1], "Hard")#2
     return model
 
 
@@ -75,6 +75,6 @@ if __name__ == "__main__":
     model = TestRegression()
     print("========================================================================")
     print("========================================================================")
-    GlobalEvaluation2(model)
+    GlobalEvaluation(model)#2
     print("Run in",round(time.time() - start),"secondes")
     print("End")
