@@ -16,7 +16,7 @@ def GenerateImages(folder):
             img = CreateImage()
             AddNoise(img)
             AddLine(img)
-            img = Rotate(img, angle * 3.6)
+            img = Rotate(img, (angle+1) * 3.6)
             AddLine(img)
             img = Resize(img)
             img = CahngeContrast(img, rand.uniform(1.2, 1.35))
