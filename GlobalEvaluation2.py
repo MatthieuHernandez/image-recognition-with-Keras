@@ -33,7 +33,7 @@ def Evaluation(model, setR, labels, printErrors = False):
         inputs = setR[0][i].reshape(1, 20, 20, 1)
         values = model.Predict(inputs)[0]
         result = np.argmax(values)
-        if abs(result - labels[i]) <= 1 : #2
+        if abs(result - labels[i]) <= 1 :
             well = well + 1
         else :
             if printErrors:
