@@ -38,7 +38,7 @@ import time
 
 
 def TestRegression():
-    trainSet    = Regression.LoadSet(["train", "train_auto-generated"])#2
+    trainSet    = Regression.LoadSet(["train", "train_auto-generated"])#2 , "train_auto-generated"
     easyTestSet = Regression.LoadSet(["test_easy"])#2
     hardTestSet = Regression.LoadSet(["test_hard"])#2
 
@@ -49,12 +49,18 @@ def TestRegression():
     
     print("Training model for regression...")
     
-    #history = model.Train(trainSet, 'sgd', 35, 2) #3000 #200
-    #PlotResult(history, "mae")
-    history = model.Train(trainSet, 'adam', 50, 2) #3000 #200
-    #PlotResult(history, 'accuracy')
-    history = model.Train(trainSet, 'sgd', 25, 2) #3000 #200
-    #PlotResult(history, 'accuracy')
+    while True:
+        epoch = int(input("Number of epoch: "))
+        if epoch == 0:
+            break
+        #history = model.Train(trainSet, 'sgd', 100, 2) #3000 #200
+        #PlotResult(history, "mae")
+        history = model.Train(trainSet, 'adam', epoch, 2) #3000 #200
+        #PlotResult(history, 'accuracy')
+        #history = model.Train(trainSet, 'sgd', epoch, 2) #3000 #200
+        #PlotResult(history, 'accuracy')
+        
+
     print("Evaluating model for regression...")
     
     scoreTrain = model.Evaluate(trainSet)
@@ -75,6 +81,6 @@ if __name__ == "__main__":
     model = TestRegression()
     print("========================================================================")
     print("========================================================================")
-    GlobalEvaluation(model)#2
+    #GlobalEvaluation(model)#2
     print("Run in",round(time.time() - start),"secondes")
     print("End")
