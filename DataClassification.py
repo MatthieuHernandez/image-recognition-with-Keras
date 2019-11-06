@@ -4,7 +4,6 @@ import matplotlib.image as mpimg
 import glob
 import operator
 from operator import itemgetter
-from Data import *
 
 class Classification:
 

@@ -22,7 +22,7 @@ SpellCooldowns ={
     "heal":     240,
     "hexflash": 100,
     "ignite":   180,
-    "smite":    100, # 100s at start and 90s after, big probelem game time needed
+    "smite":    100,
     "teleport": 360, 
 }
 
