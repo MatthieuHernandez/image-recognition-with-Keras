@@ -9,8 +9,6 @@ import glob
 import operator
 from operator import itemgetter
 
-
-
 import os
 currentDir = os.path.dirname(__file__)
 

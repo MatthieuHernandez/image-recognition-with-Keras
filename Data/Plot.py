@@ -1,6 +1,9 @@
+#from __future__ import absolute_import
+#from Data import *
+
 from matplotlib import pyplot as plt
 from matplotlib.widgets import Button
-from Regression import *
+import matplotlib.image as mpimg
 
 fig, ax = plt.subplots()
 
@@ -12,11 +15,11 @@ class Index(object):
         self.jump = jump
         self.__execute()
 
-    def next(self, _event):
+    def next(self, event):
         self.index += self.jump
         self.__execute()
 
-    def prev(self, _event):
+    def prev(self, event):
         self.index -= self.jump
         self.__execute()
 
@@ -43,9 +46,7 @@ if __name__ == "__main__":
     print("Start")
     
     #trainSet = Regression.LoadSet(["train", "train_fake", "test_hard", "train_auto-generated"])
-    setToDisplay = Regression.LoadSet(["train_auto-generated"])
-
-    #trainSet = Regression.LoadSet(["train"])
+    setToDisplay = Regression.LoadSet(["test_hard"])
     displaySet(setToDisplay)
 
     print("End")
