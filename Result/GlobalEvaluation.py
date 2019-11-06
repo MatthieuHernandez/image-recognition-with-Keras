@@ -1,8 +1,7 @@
 import numpy as np
 import operator
-from Data import *
 from Assert import *
-from DataRegression import *
+from Data.Regression import *
 
 Cooldowns = [ v for v in SpellCooldowns.values() ]
 

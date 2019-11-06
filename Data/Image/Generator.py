@@ -5,11 +5,11 @@ import matplotlib.image as mpimg
 from matplotlib import transforms as tf
 import os
 import glob
-from ImageModifier import * 
+from Modifier import * 
 
 def GenerateImages(folder):
     
-    path =  "dataset\\" + folder + "\\inputs\\"
+    path =  "Data\\Image\\dataset\\" + folder + "\\inputs\\"
     CleanFolder(path)
     for n in range(0, 2):
         for angle in range(0, 100):

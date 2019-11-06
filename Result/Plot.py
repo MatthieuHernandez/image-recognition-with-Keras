@@ -4,7 +4,6 @@ def PlotResult(history, metric):
     #print(history.history.keys())
     values = history.history[metric]
     plt.plot(values)
-    #plt.plot(history.history['val_loss'])
     plt.title('model ' + metric)
     plt.ylabel(metric)
     plt.xlabel('epoch')

@@ -1,11 +1,11 @@
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
-import glob
+import json
+import glob 
 import operator
 from operator import itemgetter
-from Data import *
-from ImageModifier import *
+from Image.Modifier import *
 
 class Regression:
 
@@ -18,7 +18,7 @@ class Regression:
             if folder == "train":
                 labels = np.concatenate((labels, Regression.__LoadJson(folder)), axis=None)
                 
-            path = "dataset\\" + folder + "\\inputs\\*.png"
+            path = "Data\\Image\\dataset\\" + folder + "\\inputs\\*.png"
             for filename in glob.glob(path):
                 img = mpimg.imread(filename)[:,:,:3]
                 
@@ -39,8 +39,9 @@ class Regression:
     
     @staticmethod
     def __LoadJson(folder):
-        path = "dataset\\" + folder + "\\labels.json"
-        labels = LoadJson(folder)
+        path = "Data\\Image\\dataset\\" + folder + "\\labels.json"
+        with open(path, 'r') as file:
+            labels = json.load(file)
         for key in labels :
             labels[key] = labels[key] / 100.0 #SpellCooldowns[name] WRONG
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))

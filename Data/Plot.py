@@ -1,7 +1,6 @@
 from matplotlib import pyplot as plt
 from matplotlib.widgets import Button
-import matplotlib.image as mpimg
-from DataRegression import * 
+from Regression import *
 
 fig, ax = plt.subplots()
 
@@ -13,11 +12,11 @@ class Index(object):
         self.jump = jump
         self.__execute()
 
-    def next(self, event):
+    def next(self, _event):
         self.index += self.jump
         self.__execute()
 
-    def prev(self, event):
+    def prev(self, _event):
         self.index -= self.jump
         self.__execute()
 

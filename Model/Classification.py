@@ -2,7 +2,7 @@ from keras.models import *
 from keras.layers import *
 import keras
 
-class ModelClassification:
+class ClassificationModel:
 
     def __init__(self):
         self.model = Sequential()

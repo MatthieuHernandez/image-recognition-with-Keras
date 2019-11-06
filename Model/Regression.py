@@ -1,10 +1,10 @@
 from keras.models import *
 from keras.layers import *
 from keras import regularizers
-from tensorflow.python.keras.applications import ResNet50
+#from tensorflow.python.keras.applications import ResNet50
 import keras
 
-class ModelRegression:
+class RegressionModel:
 
     def __init__(self):
         self.model = Sequential()

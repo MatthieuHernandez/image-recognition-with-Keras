@@ -1,0 +1,7 @@
+{
+    "python.linting.pylintArgs": [
+        "--disable=wildcard-import",
+        "--disable=missing-docstring",
+        "--disable=W0614"
+    ]
+}

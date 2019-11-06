@@ -1,9 +1,11 @@
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
+import json
 import glob
 import operator
 from operator import itemgetter
+import Data
 
 class Classification:
 
@@ -17,7 +19,7 @@ class Classification:
     @staticmethod
     def LoadData(folder):
         set = []
-        path = "dataset\\" + folder + "\\inputs\\*.png"
+        path = "Data\\Image\\dataset\\" + folder + "\\inputs\\*.png"
         for filename in glob.glob(path):
             img = mpimg.imread(filename)
             #data = img
@@ -28,10 +30,12 @@ class Classification:
 
     @staticmethod
     def LoadLabels(folder):
-        labels = LoadJson(folder) 
+        path = "Data\\Image\\dataset\\" + folder + "\\labels.json"
+        with open(path, 'r') as file:
+            labels = json.load(file)
         for key in labels :
             name = key.split('_')[0]
-            labels[key] = SpellLabels[name]
+            labels[key] = Data.SpellLabels[name]
             
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
         values = [x[1] for x in sorted_labels]
