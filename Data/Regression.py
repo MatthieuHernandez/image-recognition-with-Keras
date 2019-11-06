@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+from Data import *
+
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
@@ -5,7 +8,11 @@ import json
 import glob 
 import operator
 from operator import itemgetter
-from Image.Modifier import *
+
+
+
+import os
+currentDir = os.path.dirname(__file__)
 
 class Regression:
 
@@ -22,7 +29,7 @@ class Regression:
             for filename in glob.glob(path):
                 img = mpimg.imread(filename)[:,:,:3]
                 
-                data = Modify(img)
+                data = Image.Modifier.Modify(img)
                 inputs.append(data)
                 
                 if folder != "train":
@@ -39,7 +46,7 @@ class Regression:
     
     @staticmethod
     def __LoadJson(folder):
-        path = "Data\\Image\\dataset\\" + folder + "\\labels.json"
+        path = currentDir + "\\Image\\dataset\\" + folder + "\\labels.json"
         with open(path, 'r') as file:
             labels = json.load(file)
         for key in labels :

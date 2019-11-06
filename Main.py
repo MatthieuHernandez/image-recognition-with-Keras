@@ -1,11 +1,7 @@
 import time
-from Data.Regression import *
-from Model.Regression import *
-from Model.Classification import *
-from Data.Classification import *
-from Result.Plot import *
-from Result.Assert import *
-from Result.GlobalEvaluation import *
+import Data
+import Model
+import Result
 
 #def TestClassification():
 #    trainSet    = Classification.LoadSet(["train"])
