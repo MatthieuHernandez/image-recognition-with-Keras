@@ -11,15 +11,15 @@ def GenerateImages(folder):
     
     path =  "dataset\\" + folder + "\\inputs\\"
     CleanFolder(path)
-    for n in range(0, 4):
+    for n in range(0, 2):
         for angle in range(0, 100):
             img = CreateImage()
             AddNoise(img)
             AddLine(img)
-            img = Rotate(img, (angle+1) * 3.6)
+            img = Rotate(img, (angle+1) * rand.uniform(3.5856, 3.6144))
             AddLine(img)
             img = Resize(img)
-            img = CahngeContrast(img, rand.uniform(1.2, 1.35))
+            img = CahngeContrast(img, rand.uniform(1.6, 1.7))
             Save(img, path + "img_" + str('{0:02d}'.format(angle)) + "_" + str(n) + ".png")
             
             
@@ -37,7 +37,7 @@ def AddNoise(img):
     for x in range(0, 40):
         for y in range(0,40):
             for c in range(0,3):
-                img[y][x][c] = rand.uniform(0.2, 0.9)
+                img[y][x][c] = rand.uniform(0.2, 0.8)
 
 
 def AddLine(img):
@@ -47,7 +47,7 @@ def AddLine(img):
     
 def ColorToWhite(img, x, y):
     for c in range(0,3):
-        img[y][x][c] = rand.uniform(0.98, 1)
+        img[y][x][c] = rand.uniform(0.90, 1)
 
 
 def Rotate(img, degree):
@@ -67,7 +67,6 @@ def Save(img, name):
 
 if __name__ == "__main__":
     print("Start")
-
 
     GenerateImages("train_auto-generated")
     

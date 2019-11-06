@@ -44,7 +44,7 @@ def TestRegression():
 
     print("Creation model for regression...")
     
-    model = ModelRegression()#2
+    model = ModelRegression('simple')#2
     model.Create()
     
     print("Training model for regression...")

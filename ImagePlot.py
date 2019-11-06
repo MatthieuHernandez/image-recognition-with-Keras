@@ -7,17 +7,18 @@ fig, ax = plt.subplots()
 
 class Index(object):
     
-    def __init__(self, dataSet):
+    def __init__(self, dataSet, jump):
         self.index = 0
         self.dataSet = dataSet
+        self.jump = jump
         self.__execute()
 
     def next(self, event):
-        self.index += 1
+        self.index += self.jump
         self.__execute()
 
     def prev(self, event):
-        self.index -= 1
+        self.index -= self.jump
         self.__execute()
 
     def __execute(self):
@@ -26,10 +27,10 @@ class Index(object):
         plt.draw()
 
         
-def displaySet(dataSet):
+def displaySet(dataSet, jump = 1):
 
     plt.subplots_adjust(bottom=0.2)
-    callback = Index(dataSet)
+    callback = Index(dataSet, jump)
     axprev = plt.axes([0.7, 0.05, 0.1, 0.075])
     axnext = plt.axes([0.81, 0.05, 0.1, 0.075])
     bnext = Button(axnext, 'Next')
