@@ -11,8 +11,8 @@ def modify(img):
 
 
 def convert_to_grayscale(img):
-    img = np.dot(img[..., :3], [0.2989, 0.5870, 0.1140])[20, 20, 1]
-    return img
+    img = np.dot(img[..., :3], [0.2989, 0.5870, 0.1140])
+    return img.reshape([20, 20, 1])
 
 
 def change_contrast(img, factor):

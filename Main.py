@@ -1,7 +1,7 @@
 import time
 
-import data
 import result
+from data.regression import Regression
 from model import regression
 from tools import *
 
@@ -33,14 +33,14 @@ from tools import *
 
 
 def test_regression():
-    train_set = data.Regression.Regression.load_set(
+    train_set = Regression.load_set(
         ["train", "train_auto-generated"])
-    easy_test_set = data.Regression.Regression.load_set(["test_easy"])
-    hard_test_set = data.Regression.Regression.load_set(["test_hard"])
+    easy_test_set = Regression.load_set(["test_easy"])
+    hard_test_set = Regression.load_set(["test_hard"])
 
     print("Creation model for regression...")
 
-    model = regression.CustomModel()  # 2
+    model = regression.CustomModel()
     model.create()
 
     print("Training model for regression...")
@@ -52,7 +52,7 @@ def test_regression():
         # history = model.Train(trainSet, 'sgd', 100, 2) #3000 #200
         #PlotResult(history, "mae")
         history = model.train(train_set, 'adam', epoch, 2)  # 3000 #200
-        result.plot.display(history, 'accuracy')
+        result.plot.display(history, 'mae')
         # history = model.Train(trainSet, 'sgd', epoch, 2) #3000 #200
         #PlotResult(history, 'accuracy')
 

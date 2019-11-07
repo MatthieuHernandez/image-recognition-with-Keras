@@ -5,7 +5,7 @@ import operator
 import matplotlib.image as mpimg
 import numpy as np
 
-from data import *
+from data import information
 
 
 class Classification:
@@ -19,12 +19,12 @@ class Classification:
 
     @staticmethod
     def load_data(folder):
-        set = []
-        path = "Data\\Image\\dataset\\" + folder + "\\inputs\\*.png"
+        dataset = []
+        path = "data\\image\\dataset\\" + folder + "\\inputs\\*.png"
         for filename in glob.glob(path):
             img = mpimg.imread(filename)
             data = img.flatten(order='C')
-            set.append(data)
+            dataset.append(data)
         return np.asarray(set)
 
     @staticmethod
