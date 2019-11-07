@@ -1,11 +1,11 @@
 #from tensorflow.python.keras.applications import ResNet50
+#from keras import regularizers
 import keras
-from keras import regularizers
 from keras.layers import *
 from keras.models import *
 
 
-class Model:
+class CustomModel:
 
     def __init__(self):
         self.model = Sequential()
@@ -26,9 +26,9 @@ class Model:
         self.model.add(Dropout(0.4))
         self.model.add(Dense(20, activation='sigmoid'))
         #self.model.add(Dense(10, activation='tanh'))
-        self.model.add(Dense(1, activation='sigmoid'))'''
+        self.model.add(Dense(1, activation='sigmoid'))
 
-        '''#Complexe Model
+        #Complexe Model
         #self.model.add(SeparableConv2D(1, kernel_size=2, activation='relu', input_shape=(20, 20, 1),))
         self.model.add(Conv2D(1, kernel_size=12, padding='same', activation='relu', #input_shape=(20, 20, 1),
                               use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
@@ -40,10 +40,11 @@ class Model:
         self.model.add(Flatten())
         self.model.add(Dense(5, activation='sigmoid'))
         #self.model.add(Dropout(0.5))
-        self.model.add(Dense(1, activation='sigmoid'))'''
+        self.model.add(Dense(1, activation='sigmoid'))
+        '''
 
         # ResNet
-        for i in range(0, 10):
+        for _layer in range(0, 10):
             self.model.add(Conv2D(4, kernel_size=2, padding='same', activation='relu',
                                   kernel_regularizer=keras.regularizers.l2(
                                       0.0001)
@@ -56,7 +57,7 @@ class Model:
         self.model.add(BatchNormalization())
         self.model.add(Dense(1, activation='sigmoid'))
 
-    def train(self, set, optimizer, epochs, verbose=0):
+    def train(self, dataset, optimizer, epochs, verbose=0):
         # Compile
         if optimizer == 'sgd':
             self.model.compile(loss='mean_squared_error',
@@ -67,9 +68,9 @@ class Model:
             self.model.compile(loss='mean_squared_error',
                                optimizer='adam',  # adadelta
                                metrics=['mae'])
-        data = set[0]
+        data = dataset[0]
         # print(data.shape)
-        labels = set[1]
+        labels = dataset[1]
         # print(labels.shape)
         history = self.model.fit(
             data, labels, batch_size=16, epochs=epochs, verbose=verbose)
@@ -78,10 +79,10 @@ class Model:
         # Train
         #self.model.train_on_batch(labels, datalabels, batch_size=1)
 
-    def evaluate(self, set):
+    def evaluate(self, dataset):
         # Evaluate
-        data = set[0]
-        labels = set[1]
+        data = dataset[0]
+        labels = dataset[1]
         score = self.model.evaluate(
             data, labels, verbose=0, use_multiprocessing=False)
         return score

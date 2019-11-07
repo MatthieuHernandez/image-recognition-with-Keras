@@ -3,7 +3,8 @@
         "--disable=wildcard-import",
         "--disable=missing-docstring",
         "--disable=W0614",
-        "--good-names=c,i,j,k,x,y,z",
+        "--max-line-length=120",
+        "--good-names=c,i,j,k,x,y,z"
     ],
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
