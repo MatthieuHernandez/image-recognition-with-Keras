@@ -17,11 +17,11 @@ def generate_images(folder):
         for angle in range(0, 100):
             img = create_image()
             add_noise(img)
-            add_noise(img)
-            img = rotate(img, (angle+1) * rand.uniform(3.5856, 3.6144))
+            add_line(img)
+            img = rotate(img, (angle) * rand.uniform(3.5856, 3.6144))
             add_line(img)
             img = resize(img)
-            img = modifier.change_contrast(img, rand.uniform(1.6, 1.7))
+            img = modifier.change_contrast(img, rand.uniform(1.8, 1.9))
             save(img, path + "img_" +
                  str('{0:02d}'.format(angle)) + "_" + str(_group) + ".png")
 
@@ -40,7 +40,7 @@ def add_noise(img):
     for x in range(0, 40):
         for y in range(0, 40):
             for c in range(0, 3):
-                img[y][x][c] = rand.uniform(0.2, 0.8)
+                img[y][x][c] = rand.uniform(0.2, 0.75)
 
 
 def add_line(img):
@@ -58,7 +58,7 @@ def rotate(img, degree):
 
 
 def resize(img):
-    y, x = img.shape
+    y, x, c = img.shape
     startx = x//2-(20//2)
     starty = y//2-(20//2)
     return img[starty:starty+20, startx:startx+20]

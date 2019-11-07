@@ -34,13 +34,13 @@ from tools import *
 
 def test_regression():
     train_set = Regression.load_set(
-        ["train", "train_auto-generated"])
+        ["train_auto-generated"])  # "train",
     easy_test_set = Regression.load_set(["test_easy"])
     hard_test_set = Regression.load_set(["test_hard"])
 
     print("Creation model for regression...")
 
-    model = regression.CustomModel('resnet')
+    model = regression.CustomModel('simple')
 
     print("Training model for regression...")
 

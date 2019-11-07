@@ -14,20 +14,19 @@ class CustomModel:
     def __create(self, model_type):
 
         if model_type == 'simple':
-            self.model.add(
-                LocallyConnected2D(1, kernel_size=1, activation='relu'))
+            # self.model.add(
+            #    LocallyConnected2D(1, kernel_size=2, activation='relu'))
             self.model.add(Flatten())
-            self.model.add(Dense(400, activation='relu'))
-            self.model.add(Dense(100, activation='tanh'))
+            self.model.add(Dense(200, activation='relu'))
+            self.model.add(Dense(40, activation='tanh'))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'complexe':
-            self.model.add(Conv2D(1, kernel_size=12, padding='same', activation='relu',
+            self.model.add(Conv2D(1, kernel_size=2, padding='same', activation='relu',
                                   use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
                                   ))
-            self.model.add(MaxPooling2D(pool_size=(4, 4)))
             self.model.add(Flatten())
-            self.model.add(Dense(20, activation='sigmoid'))
+            self.model.add(Dense(500, activation='tanh'))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'resnet':
