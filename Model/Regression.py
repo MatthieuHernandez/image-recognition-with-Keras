@@ -1,5 +1,5 @@
-#from tensorflow.python.keras.applications import ResNet50
-#from keras import regularizers
+# from tensorflow.python.keras.applications import ResNet50
+# from keras import regularizers
 import keras
 from keras.layers import *
 from keras.models import *
@@ -7,55 +7,44 @@ from keras.models import *
 
 class CustomModel:
 
-    def __init__(self):
+    def __init__(self, model_type):
         self.model = Sequential()
+        self.__create(model_type)
 
-    def create(self):
+    def __create(self, model_type):
 
-        # Simple Model
-        '''
-        #self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
-        #self.model.add(Dropout(0.5))
-        #self.model.add(Conv2D(4, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
-        #self.model.add(Flatten())
-        #self.model.add(Dense(50, activation='tanh')) #, kernel_regularizer=keras.regularizers.l2(0.01)
-        #self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Flatten())
-        self.model.add(Dense(400, activation='relu'))
-        self.model.add(Dense(500, activation='tanh'))
-        self.model.add(Dropout(0.4))
-        self.model.add(Dense(20, activation='sigmoid'))
-        #self.model.add(Dense(10, activation='tanh'))
-        self.model.add(Dense(1, activation='sigmoid'))
+        if model_type == 'simple':
+            self.model.add(
+                LocallyConnected2D(1, kernel_size=1, activation='relu'))
+            self.model.add(Flatten())
+            self.model.add(Dense(400, activation='relu'))
+            self.model.add(Dense(100, activation='tanh'))
+            self.model.add(Dense(1, activation='sigmoid'))
 
-        #Complexe Model
-        #self.model.add(SeparableConv2D(1, kernel_size=2, activation='relu', input_shape=(20, 20, 1),))
-        self.model.add(Conv2D(1, kernel_size=12, padding='same', activation='relu', #input_shape=(20, 20, 1),
-                              use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
-                              ))
-        #self.model.add(Dropout(0.1))
-        #self.model.add(MaxPooling2D(pool_size=(10, 10)))
-        #self.model.add(Conv2D(64, kernel_size=5, activation='tanh'))
-        #self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        self.model.add(Flatten())
-        self.model.add(Dense(5, activation='sigmoid'))
-        #self.model.add(Dropout(0.5))
-        self.model.add(Dense(1, activation='sigmoid'))
-        '''
-
-        # ResNet
-        for _layer in range(0, 10):
-            self.model.add(Conv2D(4, kernel_size=2, padding='same', activation='relu',
-                                  kernel_regularizer=keras.regularizers.l2(
-                                      0.0001)
+        elif model_type == 'complexe':
+            self.model.add(Conv2D(1, kernel_size=12, padding='same', activation='relu',
+                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
                                   ))
-        self.model.add(BatchNormalization())
-        self.model.add(Flatten())
-        self.model.add(Dense(120, activation='relu'))
-        self.model.add(BatchNormalization())
-        self.model.add(Dense(90, activation='tanh'))
-        self.model.add(BatchNormalization())
-        self.model.add(Dense(1, activation='sigmoid'))
+            self.model.add(MaxPooling2D(pool_size=(4, 4)))
+            self.model.add(Flatten())
+            self.model.add(Dense(20, activation='sigmoid'))
+            self.model.add(Dense(1, activation='sigmoid'))
+
+        elif model_type == 'resnet':
+            for _layer in range(0, 10):
+                self.model.add(Conv2D(4, kernel_size=2, padding='same', activation='relu',
+                                      kernel_regularizer=keras.regularizers.l2(
+                                          0.0001)
+                                      ))
+            self.model.add(BatchNormalization())
+            self.model.add(Flatten())
+            self.model.add(Dense(120, activation='relu'))
+            self.model.add(BatchNormalization())
+            self.model.add(Dense(90, activation='tanh'))
+            self.model.add(BatchNormalization())
+            self.model.add(Dense(1, activation='sigmoid'))
+        else:
+            raise Exception("CustomModel must have a valid type")
 
     def train(self, dataset, optimizer, epochs, verbose=0):
         # Compile
@@ -77,7 +66,7 @@ class CustomModel:
         return history
 
         # Train
-        #self.model.train_on_batch(labels, datalabels, batch_size=1)
+        # self.model.train_on_batch(labels, datalabels, batch_size=1)
 
     def evaluate(self, dataset):
         # Evaluate

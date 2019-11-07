@@ -40,8 +40,7 @@ def test_regression():
 
     print("Creation model for regression...")
 
-    model = regression.CustomModel()
-    model.create()
+    model = regression.CustomModel('resnet')
 
     print("Training model for regression...")
 
