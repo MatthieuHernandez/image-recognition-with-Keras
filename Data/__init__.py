@@ -1,4 +1,3 @@
-from __future__ import absolute_import
+__all__ = ["Classification", "Regression"]
 from . import Classification
 from . import Regression
-

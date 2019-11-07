@@ -1,9 +1,7 @@
 import numpy as np
 import operator
-from Assert import *
 from Data.Regression import *
-
-Cooldowns = [ v for v in SpellCooldowns.values() ]
+from Result.Assert import *
 
 def GlobalEvaluation(model):
 

@@ -1,6 +1,6 @@
-from __future__ import absolute_import
-from Data import *
 
+
+from Data import Image  
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
@@ -32,7 +32,7 @@ class Regression:
                 
                 if folder != "train":
                     filename = filename.split('\\')[-1]
-                    name = filename.split('_')[0]
+                    #name = filename.split('_')[0]
                     value = filename.split('_')[1].split('.')[0]
                     if "fake" in folder:
                         label = float(value) / 1000.0

@@ -1,6 +1,6 @@
 import time
 import Data
-import Model
+from Model import Regression
 import Result
 
 #def TestClassification():
@@ -30,13 +30,13 @@ import Result
 #    return (model, trainSet, easyTestSet, hardTestSet)
 
 def TestRegression():
-    trainSet    = Regression.LoadSet(["train", "train_auto-generated"])#2 , "train_auto-generated"
-    easyTestSet = Regression.LoadSet(["test_easy"])#2
-    hardTestSet = Regression.LoadSet(["test_hard"])#2
+    trainSet    = Data.Regression.Regression.LoadSet(["train", "train_auto-generated"])#2 , "train_auto-generated"
+    easyTestSet = Data.Regression.Regression.LoadSet(["test_easy"])#2
+    hardTestSet = Data.Regression.Regression.LoadSet(["test_hard"])#2
 
     print("Creation model for regression...")
     
-    model = RegressionModel()#2
+    model = Regression.RegressionModel()#2
     model.Create()
     
     print("Training model for regression...")
