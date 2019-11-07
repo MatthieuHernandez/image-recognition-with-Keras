@@ -1,2 +1,3 @@
-from . import Classification
-from . import Regression
+__all__ = ["classification, regression"]
+from . import classification
+from . import regression

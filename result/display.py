@@ -1,32 +1,25 @@
 
-def PrintAssertRegression(score, difficulty) :
+def regression(score, difficulty) :
     if score < 1/180 :
-        successful(difficulty)
+        __successful(difficulty)
     else:
-        fail(difficulty)
+        __fail(difficulty)
     print(difficulty + " test mean absolute error: ", score)
 
-def PrintAssertRegression2(score, difficulty) :
-    if score < 1/180 :
-        successful(difficulty)
-    else:
-        fail(difficulty)
-    print(difficulty + " accuracy: ", score)
-
-def PrintAssertClassification(score, difficulty) :
+def classification(score, difficulty) :
     if score > 0.98 :
-        successful(difficulty)
+        __successful(difficulty)
     else:
-        fail(difficulty)
+        __fail(difficulty)
     print(difficulty + " test accuracy: ", score*100, "%")
 
 
-def successful(difficulty):
+def __successful(difficulty):
     print("==============================")
     print("=== " + difficulty.upper() + " TEST SUCCESSFUL ===")
     print("==============================")
 
-def fail(difficulty):
+def __fail(difficulty):
     print("==============================")
     print("======= " + difficulty.upper() + " TEST FAIL =======")
     print("==============================")

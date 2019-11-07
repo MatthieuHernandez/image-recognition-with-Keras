@@ -1,38 +1,38 @@
-#from __future__ import absolute_import
-#from Data import *
-
 from matplotlib import pyplot as plt
 from matplotlib.widgets import Button
-import matplotlib.image as mpimg
 
-fig, ax = plt.subplots()
+from data.regression import Regression
+
 
 class Index(object):
-    
-    def __init__(self, dataSet, jump):
+
+    def __init__(self, dataset, jump):
+        self.fig, self.axe = plt.subplots()
         self.index = 0
-        self.dataSet = dataSet
+        self.dataset = dataset
         self.jump = jump
         self.__execute()
 
-    def next(self, event):
+    def next(self, _event):
         self.index += self.jump
         self.__execute()
 
-    def prev(self, event):
+    def prev(self, _event):
         self.index -= self.jump
         self.__execute()
 
     def __execute(self):
-        ax.set_title("{0}    index={1}".format(self.dataSet[1][self.index], self.index))
-        ax.imshow(self.dataSet[0][self.index].reshape(20, 20), cmap='gray')
+        self.axe.set_title("{0}    index={1}".format(
+            self.dataset[1][self.index], self.index))
+        self.axe.imshow(
+            self.dataset[0][self.index].reshape(20, 20), cmap='gray')
         plt.draw()
 
-        
-def displaySet(dataSet, jump = 1):
+
+def display_set(dataset, jump=1):
 
     plt.subplots_adjust(bottom=0.2)
-    callback = Index(dataSet, jump)
+    callback = Index(dataset, jump)
     axprev = plt.axes([0.7, 0.05, 0.1, 0.075])
     axnext = plt.axes([0.81, 0.05, 0.1, 0.075])
     bnext = Button(axnext, 'Next')
@@ -42,11 +42,13 @@ def displaySet(dataSet, jump = 1):
     plt.show()
 
 
-if __name__ == "__main__":
+def main():
     print("Start")
-    
-    #trainSet = Regression.LoadSet(["train", "train_fake", "test_hard", "train_auto-generated"])
-    setToDisplay = Regression.LoadSet(["test_hard"])
-    displaySet(setToDisplay)
-
+    #trainSet = Regression.load_set(["train", "train_fake", "test_hard", "train_auto-generated"])
+    set_to_display = Regression.load_set(["test_hard"])
+    display_set(set_to_display)
     print("End")
+
+
+if __name__ == "__main__":
+    main()

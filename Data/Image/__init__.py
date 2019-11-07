@@ -1,2 +1,2 @@
-__all__ = ["Modifier"]
-from . import Modifier
+__all__ = ["modifier"]
+from . import modifier

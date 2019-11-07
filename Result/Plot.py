@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 
-def PlotResult(history, metric):
+
+def display(history, metric):
     #print(history.history.keys())
     values = history.history[metric]
     plt.plot(values)
@@ -11,4 +12,3 @@ def PlotResult(history, metric):
     plt.legend(['train', 'validation'], loc='upper left')
     plt.text(len(values) - (len(values)/10+1), values[-1] + 0.01, '%.4f'%values[-1])
     plt.show()
-

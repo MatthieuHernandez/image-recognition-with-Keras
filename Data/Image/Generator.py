@@ -1,73 +1,78 @@
-import numpy as np
-import random as rand
-from scipy import ndimage
-import matplotlib.image as mpimg
-from matplotlib import transforms as tf
-import os
 import glob
-from Modifier import * 
+import os
+import random as rand
 
-def GenerateImages(folder):
-    
-    path =  "Data\\Image\\dataset\\" + folder + "\\inputs\\"
-    CleanFolder(path)
-    for n in range(0, 2):
+import matplotlib.image as mpimg
+import numpy as np
+from scipy import ndimage
+
+from data.image import modifier
+
+
+def generate_images(folder):
+
+    path = "Data\\Image\\dataset\\" + folder + "\\inputs\\"
+    clean_folder(path)
+    for _group in range(0, 2):
         for angle in range(0, 100):
-            img = CreateImage()
-            AddNoise(img)
-            AddLine(img)
-            img = Rotate(img, (angle+1) * rand.uniform(3.5856, 3.6144))
-            AddLine(img)
-            img = Resize(img)
-            img = CahngeContrast(img, rand.uniform(1.6, 1.7))
-            Save(img, path + "img_" + str('{0:02d}'.format(angle)) + "_" + str(n) + ".png")
-            
-            
-def CleanFolder(path):
+            img = create_image()
+            add_noise(img)
+            add_noise(img)
+            img = rotate(img, (angle+1) * rand.uniform(3.5856, 3.6144))
+            add_line(img)
+            img = resize(img)
+            img = modifier.change_contrast(img, rand.uniform(1.6, 1.7))
+            save(img, path + "img_" +
+                 str('{0:02d}'.format(angle)) + "_" + str(_group) + ".png")
+
+
+def clean_folder(path):
     for file in glob.glob(path + "*.png"):
         os.remove(file)
 
 
-def CreateImage():
-    img = np.zeros((40, 40, 3)) # 30x30 for rotation
+def create_image():
+    img = np.zeros((40, 40, 3))  # 30x30 for rotation
     return img
 
 
-def AddNoise(img):
+def add_noise(img):
     for x in range(0, 40):
-        for y in range(0,40):
-            for c in range(0,3):
+        for y in range(0, 40):
+            for c in range(0, 3):
                 img[y][x][c] = rand.uniform(0.2, 0.8)
 
 
-def AddLine(img):
+def add_line(img):
     for y in range(0, 21):
-        ColorToWhite(img, 20, y)
-    
-    
-def ColorToWhite(img, x, y):
-    for c in range(0,3):
+        color_to_white(img, 20, y)
+
+
+def color_to_white(img, x, y):
+    for c in range(0, 3):
         img[y][x][c] = rand.uniform(0.90, 1)
 
 
-def Rotate(img, degree):
+def rotate(img, degree):
     return ndimage.rotate(img, -degree, reshape=False, prefilter=False, mode='constant', order=1)
 
 
-def Resize(img):
-    y,x,c = img.shape
+def resize(img):
+    y, x = img.shape
     startx = x//2-(20//2)
-    starty = y//2-(20//2)    
-    return img[starty:starty+20,startx:startx+20]
+    starty = y//2-(20//2)
+    return img[starty:starty+20, startx:startx+20]
 
-    
-def Save(img, name):
+
+def save(img, name):
     mpimg.imsave(name, img, format='png')
 
 
-if __name__ == "__main__":
+def main():
     print("Start")
-
-    GenerateImages("train_auto-generated")
-    
+    generate_images("train_auto-generated")
     print("End")
+
+
+if __name__ == "__main__":
+    main()

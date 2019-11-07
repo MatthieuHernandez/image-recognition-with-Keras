@@ -1,7 +1,7 @@
 import numpy as np
 import operator
-from Data.Regression import *
-from Result.Assert import *
+from data.regression import *
+from result.display import *
 
 def GlobalEvaluation(model):
 

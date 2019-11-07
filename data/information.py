@@ -1,4 +1,4 @@
-SpellLabels ={
+SPELL_LABELS = {
     "barrier":  0,
     "cleanse":  1,
     "exhaust":  2,
@@ -11,7 +11,7 @@ SpellLabels ={
     "teleport": 9
 }
 
-SpellCooldowns ={
+SPELL_COOLDOWNS = {
     "barrier":  180,
     "cleanse":  210,
     "exhaust":  210,

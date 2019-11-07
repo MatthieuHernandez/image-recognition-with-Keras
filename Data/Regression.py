@@ -1,35 +1,36 @@
-
-
-from Data import Image  
-import numpy as np
-from matplotlib import pyplot as plt
-import matplotlib.image as mpimg
+import glob
 import json
-import glob 
 import operator
+import os
 from operator import itemgetter
 
-import os
+import matplotlib.image as mpimg
+import numpy as np
+
+from data.image import modifier
+
 currentDir = os.path.dirname(__file__)
+
 
 class Regression:
 
     @staticmethod
-    def LoadSet(folders):
+    def load_set(folders):
         inputs = []
         labels = []
         for folder in folders:
-  
+
             if folder == "train":
-                labels = np.concatenate((labels, Regression.__LoadJson(folder)), axis=None)
-                
+                labels = np.concatenate(
+                    (labels, Regression.__load_json(folder)), axis=None)
+
             path = "Data\\Image\\dataset\\" + folder + "\\inputs\\*.png"
             for filename in glob.glob(path):
-                img = mpimg.imread(filename)[:,:,:3]
-                
-                data = Image.Modifier.Modify(img)
+                img = mpimg.imread(filename)[:, :, :3]
+
+                data = modifier.modify(img)
                 inputs.append(data)
-                
+
                 if folder != "train":
                     filename = filename.split('\\')[-1]
                     #name = filename.split('_')[0]
@@ -37,28 +38,30 @@ class Regression:
                     if "fake" in folder:
                         label = float(value) / 1000.0
                     else:
-                        label = float(value) / 100.0 #SpellCooldowns[name] WRONG
+                        # SpellCooldowns[name] WRONG
+                        label = float(value) / 100.0
                     labels = np.concatenate((labels, [label]), axis=None)
-
         return (np.asarray(inputs), np.asarray(labels))
-    
+
     @staticmethod
-    def __LoadJson(folder):
+    def __load_json(folder):
         path = currentDir + "\\Image\\dataset\\" + folder + "\\labels.json"
         with open(path, 'r') as file:
             labels = json.load(file)
-        for key in labels :
-            labels[key] = labels[key] / 100.0 #SpellCooldowns[name] WRONG
+        for key in labels:
+            labels[key] = labels[key] / 100.0  # SpellCooldowns[name] WRONG
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
         values = [x[1] for x in sorted_labels]
         result = np.array(values)
         return result
-        
+
+
+def main():
+    print("Start")
+    trainSet = Regression.load_set(
+        ["train", "train_fake", "test_hard", "train_auto-generated"])
+    print("End")
 
 
 if __name__ == "__main__":
-    print("Start")
-    
-    trainSet = Regression.LoadSet(["train", "train_fake", "test_hard", "train_auto-generated"])
-
-    print("End")
+    main()

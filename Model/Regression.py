@@ -1,19 +1,18 @@
-from keras.models import *
-from keras.layers import *
-from keras import regularizers
 #from tensorflow.python.keras.applications import ResNet50
 import keras
+from keras import regularizers
+from keras.layers import *
+from keras.models import *
 
-class RegressionModel:
+
+class Model:
 
     def __init__(self):
         self.model = Sequential()
 
+    def create(self):
 
-    def Create(self):
-        
-        #Simple Model
-        
+        # Simple Model
         '''
         #self.model.add(LocallyConnected2D(16, kernel_size=4, activation='relu', input_shape=(20, 20, 3)))
         #self.model.add(Dropout(0.5))
@@ -42,12 +41,13 @@ class RegressionModel:
         self.model.add(Dense(5, activation='sigmoid'))
         #self.model.add(Dropout(0.5))
         self.model.add(Dense(1, activation='sigmoid'))'''
-        
-        #ResNet
+
+        # ResNet
         for i in range(0, 10):
             self.model.add(Conv2D(4, kernel_size=2, padding='same', activation='relu',
-                                kernel_regularizer=keras.regularizers.l2(0.0001)
-                                ))
+                                  kernel_regularizer=keras.regularizers.l2(
+                                      0.0001)
+                                  ))
         self.model.add(BatchNormalization())
         self.model.add(Flatten())
         self.model.add(Dense(120, activation='relu'))
@@ -56,35 +56,35 @@ class RegressionModel:
         self.model.add(BatchNormalization())
         self.model.add(Dense(1, activation='sigmoid'))
 
-
-    def Train(self, set, optimizer, epochs, verbose = 0):
-        #Compile
+    def train(self, set, optimizer, epochs, verbose=0):
+        # Compile
         if optimizer == 'sgd':
             self.model.compile(loss='mean_squared_error',
-                  optimizer=keras.optimizers.SGD(learning_rate=0.01, momentum=0.7, nesterov=False),
-                  metrics=['mae'])
+                               optimizer=keras.optimizers.SGD(
+                                   learning_rate=0.01, momentum=0.7, nesterov=False),
+                               metrics=['mae'])
         if optimizer == 'adam':
             self.model.compile(loss='mean_squared_error',
-              optimizer='adam', #adadelta
-              metrics=['mae'])
+                               optimizer='adam',  # adadelta
+                               metrics=['mae'])
         data = set[0]
-        #print(data.shape)
+        # print(data.shape)
         labels = set[1]
-        #print(labels.shape)
-        history = self.model.fit(data, labels, batch_size=16, epochs=epochs, verbose=verbose)
+        # print(labels.shape)
+        history = self.model.fit(
+            data, labels, batch_size=16, epochs=epochs, verbose=verbose)
         return history
-        
-        #Train
+
+        # Train
         #self.model.train_on_batch(labels, datalabels, batch_size=1)
 
-
-    def Evaluate(self, set) :
-        #Evaluate
+    def evaluate(self, set):
+        # Evaluate
         data = set[0]
         labels = set[1]
-        score = self.model.evaluate(data, labels, verbose=0, use_multiprocessing=False)
+        score = self.model.evaluate(
+            data, labels, verbose=0, use_multiprocessing=False)
         return score
 
-
-    def Predict(self, x):
+    def predict(self, x):
         return self.model.predict(x)

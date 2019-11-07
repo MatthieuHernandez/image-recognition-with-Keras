@@ -1,7 +1,8 @@
 import time
-import Data
-from Model import Regression
-import Result
+import tools as tl
+import data
+from model import regression
+import result
 
 #def TestClassification():
 #    trainSet    = Classification.LoadSet(["train"])
@@ -30,48 +31,49 @@ import Result
 #    return (model, trainSet, easyTestSet, hardTestSet)
 
 def TestRegression():
-    trainSet    = Data.Regression.Regression.LoadSet(["train", "train_auto-generated"])#2 , "train_auto-generated"
-    easyTestSet = Data.Regression.Regression.LoadSet(["test_easy"])#2
-    hardTestSet = Data.Regression.Regression.LoadSet(["test_hard"])#2
+    train_set = data.Regression.Regression.LoadSet(["train", "train_auto-generated"])
+    easy_test_set = data.Regression.Regression.LoadSet(["test_easy"])
+    hard_test_set = data.Regression.Regression.LoadSet(["test_hard"])
 
     print("Creation model for regression...")
     
-    model = Regression.RegressionModel()#2
+    model = regression.Model()#2
     model.Create()
     
     print("Training model for regression...")
     
     while True:
-        epoch = int(input("Number of epoch: "))
+        epoch = tl.Int(input("Number of epoch: "))
         if epoch == 0:
             break
         #history = model.Train(trainSet, 'sgd', 100, 2) #3000 #200
         #PlotResult(history, "mae")
-        history = model.Train(trainSet, 'adam', epoch, 2) #3000 #200
-        PlotResult(history, 'accuracy')
+        history = model.Train(train_set, 'adam', epoch, 2) #3000 #200
+        result.plot.display(history, 'accuracy')
         #history = model.Train(trainSet, 'sgd', epoch, 2) #3000 #200
         #PlotResult(history, 'accuracy')    
 
     print("Evaluating model for regression...")
     
-    scoreTrain = model.Evaluate(trainSet)
-    scoreEasy = model.Evaluate(easyTestSet)
-    scoreHard = model.Evaluate(hardTestSet)
+    score_train = model.Evaluate(train_set)
+    score_easy = model.Evaluate(easy_test_set)
+    score_hard = model.Evaluate(hard_test_set)
     
-    PrintAssertRegression(scoreTrain[1], "Train")#2
-    PrintAssertRegression(scoreEasy[1], "Easy")#2
-    PrintAssertRegression(scoreHard[1], "Hard")#2
+    result.print.regression(score_train[1], "Train")
+    result.print.regression(score_easy[1], "Easy")
+    result.print.regression(score_hard[1], "Hard")
     return model
 
-
-if __name__ == "__main__":
-
+def main():
     print("Start")
     start = time.time()
     #c = TestClassification()
     model = TestRegression()
     print("========================================================================")
     print("========================================================================")
-    #GlobalEvaluation(model)#2
+    GlobalEvaluation(model)
     print("Run in", round(time.time() - start), "secondes")
     print("End")
+    
+if __name__ == "__main__":
+    main()

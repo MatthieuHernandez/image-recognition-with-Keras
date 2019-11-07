@@ -1,3 +1,2 @@
-from . import Assert
-from . import GlobalEvaluation
-from . import Plot
+from . import global_evaluation
+from . import plot
