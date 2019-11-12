@@ -1,3 +1,1 @@
-from . import global_evaluation
-from . import plot
-from . import display
+from . import display, global_evaluation, plot
