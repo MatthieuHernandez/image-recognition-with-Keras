@@ -13,7 +13,7 @@ def generate_images(folder):
 
     path = "Data\\Image\\dataset\\" + folder + "\\inputs\\"
     clean_folder(path)
-    for _group in range(0, 2):
+    for _group in range(0, 10):
         for angle in range(0, 100):
             img = create_image()
             add_noise(img)
@@ -40,7 +40,7 @@ def add_noise(img):
     for x in range(0, 40):
         for y in range(0, 40):
             for c in range(0, 3):
-                img[y][x][c] = rand.uniform(0.2, 0.75)
+                img[y][x][c] = rand.uniform(0.3, 1.0)
 
 
 def add_line(img):

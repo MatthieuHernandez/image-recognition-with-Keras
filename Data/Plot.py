@@ -46,7 +46,7 @@ def display_set(dataset, jump=1):
 def main():
     print("Start")
     #trainSet = Regression.load_set(["train", "train_fake", "test_hard", "train_auto-generated"])
-    set_to_display = Regression.load_set(["test_hard"])
+    set_to_display = Regression.load_set(["train_auto-generated"])
     display_set(set_to_display)
     print("End")
 

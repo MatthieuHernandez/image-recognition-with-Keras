@@ -34,25 +34,25 @@ from tools import *
 
 def test_regression():
     train_set = Regression.load_set(
-        ["train_auto-generated"])  # "train",
+        ["train", "train_auto-generated"])  # "train",
     easy_test_set = Regression.load_set(["test_easy"])
     hard_test_set = Regression.load_set(["test_hard"])
 
     print("Creation model for regression...")
 
-    model = regression.CustomModel('simple')
+    model = regression.CustomModel('complexe')
 
     print("Training model for regression...")
 
     while True:
-        epoch = to_int(input("Number of epoch: "))
+        epoch = to_int(input("Number of epoch: "))  # 60
         if epoch == 0:
             break
-        # history = model.Train(trainSet, 'sgd', 100, 2) #3000 #200
+        # history = model.Train(trainSet, 'sgd', 100, 2)
         #PlotResult(history, "mae")
-        history = model.train(train_set, 'adam', epoch, 2)  # 3000 #200
+        history = model.train(train_set, 'adam', epoch, 2)
         result.plot.display(history, 'mae')
-        # history = model.Train(trainSet, 'sgd', epoch, 2) #3000 #200
+        # history = model.Train(trainSet, 'sgd', epoch, 2)
         #PlotResult(history, 'accuracy')
 
     print("Evaluating model for regression...")

@@ -1,5 +1,6 @@
 # from tensorflow.python.keras.applications import ResNet50
 # from keras import regularizers
+
 import keras
 from keras.layers import *
 from keras.models import *
@@ -17,20 +18,25 @@ class CustomModel:
             # self.model.add(
             #    LocallyConnected2D(1, kernel_size=2, activation='relu'))
             self.model.add(Flatten())
-            self.model.add(Dense(200, activation='relu'))
+            self.model.add(Dense(500, activation='relu'))
             self.model.add(Dense(40, activation='tanh'))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'complexe':
-            self.model.add(Conv2D(1, kernel_size=2, padding='same', activation='relu',
+            self.model.add(Conv2D(2, kernel_size=5, padding='same', activation='relu',
                                   use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
                                   ))
             self.model.add(Flatten())
-            self.model.add(Dense(500, activation='tanh'))
+            self.model.add(Dense(120, activation='tanh'))
+            self.model.add(Dropout(0.4))
+            self.model.add(Dense(60, activation='tanh'))
+            self.model.add(Dropout(0.4))
+            self.model.add(Dense(30, activation='tanh'))
+            self.model.add(Dropout(0.4))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'resnet':
-            for _layer in range(0, 10):
+            for _layer in range(0, 3):
                 self.model.add(Conv2D(4, kernel_size=2, padding='same', activation='relu',
                                       kernel_regularizer=keras.regularizers.l2(
                                           0.0001)
