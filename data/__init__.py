@@ -1,4 +1,2 @@
-__all__ = ["classification", "regression", "information"]
-from . import classification
-from . import regression
-from . import information
+__all__ = ["classification", "information", "regression"]
+from . import classification, information, regression
