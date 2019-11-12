@@ -6,7 +6,8 @@ def modify(img):
     img = convert_to_grayscale(img)
     img = change_brightness(img, 0.71)
     img = change_contrast(img, 2.85)
-    img = remove_small_values(img, 0.975)
+    # img = remove_small_values(img, 0.975)
+    img = sqrt(img)
     return img
 
 
@@ -35,4 +36,12 @@ def remove_small_values(img, theshold):
                     for c in range(0, len(img[x][y])):
                         img[x][y][c] = 0
                     continue
+    return img
+
+
+def sqrt(img):
+    for x in range(0, len(img)):
+        for y in range(0, len(img[x])):
+            for c in range(0, len(img[x][y])):
+                img[x][y][c] = img[x][y][c] * img[x][y][c]
     return img

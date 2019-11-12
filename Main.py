@@ -19,7 +19,7 @@ def test_regression():
     print("Training model for regression...")
 
     while True:
-        epoch = to_int(input("Number of epoch: "))  # 60
+        epoch = to_int(input("Number of epoch: "))  # 110
         if epoch == 0:
             break
         history = model.train(train_set, 'adam', epoch, 2)
