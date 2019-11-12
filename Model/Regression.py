@@ -28,11 +28,11 @@ class CustomModel:
                                   ))
             self.model.add(Flatten())
             self.model.add(Dense(120, activation='tanh'))
-            self.model.add(Dropout(0.4))
+            self.model.add(Dropout(0.15))
             self.model.add(Dense(60, activation='tanh'))
-            self.model.add(Dropout(0.4))
+            self.model.add(Dropout(0.15))
             self.model.add(Dense(30, activation='tanh'))
-            self.model.add(Dropout(0.4))
+            self.model.add(Dropout(0.15))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'resnet':
