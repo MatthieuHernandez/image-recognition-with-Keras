@@ -23,16 +23,42 @@ class CustomModel:
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'complexe':
-            self.model.add(Conv2D(2, kernel_size=5, padding='same', activation='relu',
+            self.model.add(Conv2D(2, kernel_size=4, padding='same', activation='relu',
                                   use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
                                   ))
             self.model.add(Flatten())
-            self.model.add(Dense(120, activation='tanh'))
+            self.model.add(Dense(110, activation='tanh'))
             self.model.add(Dropout(0.15))
             self.model.add(Dense(60, activation='tanh'))
             self.model.add(Dropout(0.15))
-            self.model.add(Dense(30, activation='tanh'))
+            self.model.add(Dense(30, activation='sigmoid'))
             self.model.add(Dropout(0.15))
+            self.model.add(Dense(1, activation='sigmoid'))
+
+        elif model_type == 'pyramidnet':
+            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='relu',
+                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+                                  ))
+            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='sigmoid',
+                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+                                  ))
+            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='sigmoid',
+                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+                                  ))
+            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='sigmoid',
+                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+                                  ))
+            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='sigmoid',
+                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+                                  ))
+            self.model.add(Conv2D(1, kernel_size=2, padding='valid', activation='sigmoid',
+                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+                                  ))
+            self.model.add(Conv2D(1, kernel_size=2, padding='valid', activation='sigmoid',
+                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+                                  ))
+            self.model.add(Flatten())
+            self.model.add(Dense(8, activation='sigmoid'))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'resnet':
