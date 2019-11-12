@@ -40,7 +40,7 @@ def add_noise(img):
     for x in range(0, 40):
         for y in range(0, 40):
             for c in range(0, 3):
-                img[y][x][c] = rand.uniform(0.3, 1.0)
+                img[y][x][c] = rand.uniform(0.0, 1.0)
 
 
 def add_line(img):
