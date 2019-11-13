@@ -2,6 +2,7 @@
 # from keras import regularizers
 
 import keras
+from keras.callbacks import *
 from keras.layers import *
 from keras.models import *
 
@@ -100,10 +101,12 @@ class CustomModel:
         history = self.model.fit(
             train[0], train[1],
             batch_size=16,
+            callbacks=[EarlyStopping(
+                monitor='val_loss', patience=8, mode='min', restore_best_weights=True)],
             epochs=epochs,
             verbose=verbose,
             validation_data=test,
-            validation_freq=5,
+            validation_freq=6,
             use_multiprocessing=True)
         return history
 
