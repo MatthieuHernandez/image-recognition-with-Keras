@@ -23,16 +23,24 @@ class CustomModel:
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'complexe':
-            self.model.add(Conv2D(2, kernel_size=4, padding='same', activation='relu',
-                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
+            self.model.add(Conv2D(8, kernel_size=4, padding='same', activation='relu',
+                                  bias_regularizer=keras.regularizers.l2(
+                                      0.0001)
                                   ))
+            self.model.add(MaxPooling2D(pool_size=(2, 2), padding='valid'))
             self.model.add(Flatten())
-            self.model.add(Dense(110, activation='tanh'))
+            self.model.add(Dense(350, activation='tanh'))
+            self.model.add(BatchNormalization())
+            self.model.add(Dropout(0.20))
+
+            self.model.add(Dense(120, activation='tanh'))
+            self.model.add(BatchNormalization())
             self.model.add(Dropout(0.15))
-            self.model.add(Dense(60, activation='tanh'))
-            self.model.add(Dropout(0.15))
-            self.model.add(Dense(30, activation='sigmoid'))
-            self.model.add(Dropout(0.15))
+
+            self.model.add(Dense(35, activation='sigmoid'))
+            self.model.add(BatchNormalization())
+            self.model.add(Dropout(0.10))
+
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'pyramidnet':
@@ -77,7 +85,7 @@ class CustomModel:
         else:
             raise Exception("CustomModel must have a valid type")
 
-    def train(self, dataset, optimizer, epochs, verbose=0):
+    def train(self, train, test, optimizer, epochs, verbose=0):
         # Compile
         if optimizer == 'sgd':
             self.model.compile(loss='mean_squared_error',
@@ -88,16 +96,16 @@ class CustomModel:
             self.model.compile(loss='mean_squared_error',
                                optimizer='adam',  # adadelta
                                metrics=['mae'])
-        data = dataset[0]
-        # print(data.shape)
-        labels = dataset[1]
-        # print(labels.shape)
-        history = self.model.fit(
-            data, labels, batch_size=16, epochs=epochs, verbose=verbose)
-        return history
 
-        # Train
-        # self.model.train_on_batch(labels, datalabels, batch_size=1)
+        history = self.model.fit(
+            train[0], train[1],
+            batch_size=16,
+            epochs=epochs,
+            verbose=verbose,
+            validation_data=test,
+            validation_freq=5,
+            use_multiprocessing=True)
+        return history
 
     def evaluate(self, dataset):
         # Evaluate

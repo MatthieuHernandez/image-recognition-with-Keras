@@ -9,7 +9,7 @@ class Index(object):
     def __init__(self, dataset, jump):
         self.fig, self.axe = plt.subplots()
         plt.subplots_adjust(bottom=0.2)
-        self.index = 83
+        self.index = 167
         self.dataset = dataset
         self.jump = jump
         self.__execute()
@@ -44,7 +44,7 @@ def display_set(dataset, jump=1):
 
 def main():
     print("Start")
-    #trainSet = Regression.load_set(["train", "train_fake", "test_hard", "train_auto-generated"])
+    #trainSet = Regression.load_set(["train", "test_hard", "train_auto-generated"])
     set_to_display = Regression.load_set(["test_hard"])
     display_set(set_to_display)
     print("End")

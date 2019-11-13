@@ -29,12 +29,10 @@ class Regression:
 
                 if folder != "train":
                     filename = filename.split('\\')[-1]
-                    #name = filename.split('_')[0]
                     value = filename.split('_')[1].split('.')[0]
                     if "fake" in folder:
                         label = float(value) / 1000.0
                     else:
-                        # SpellCooldowns[name] WRONG
                         label = float(value) / 100.0
                     labels = np.concatenate((labels, [label]), axis=None)
         return (np.asarray(inputs), np.asarray(labels))
@@ -43,7 +41,7 @@ class Regression:
     def __load_json(folder):
         labels = load_json(folder)
         for key in labels:
-            labels[key] = labels[key] / 100.0  # SpellCooldowns[name] WRONG
+            labels[key] = labels[key] / 100.0
         sorted_labels = sorted(labels.items(), key=operator.itemgetter(0))
         values = [x[1] for x in sorted_labels]
         result = np.array(values)

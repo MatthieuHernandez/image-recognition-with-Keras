@@ -2,11 +2,12 @@ import numpy as np
 
 
 def modify(img):
-    img = remove_small_values(img, 0.80)
+    img = reduce_colored_value(img, 0.2, 0.97)
+    img = reduce_small_values(img, 0.80, 0.85)
     img = convert_to_grayscale(img)
-    img = change_brightness(img, 0.71)
-    img = change_contrast(img, 2.85)
-    # img = remove_small_values(img, 0.975)
+    img = change_brightness(img, 0.80)
+    img = change_contrast(img, 2.45)
+    img = reduce_small_values(img, 0.8, 0.96)
     img = sqrt(img)
     return img
 
@@ -28,14 +29,26 @@ def change_brightness(img, factor):
     return img
 
 
-def remove_small_values(img, theshold):
+def reduce_small_values(img, threshold, value):
     for x in range(0, len(img)):
         for y in range(0, len(img[x])):
             for z in range(0, len(img[x][y])):
-                if img[x][y][z] <= theshold:
+                if img[x][y][z] <= threshold:
                     for c in range(0, len(img[x][y])):
-                        img[x][y][c] = 0
+                        img[x][y][c] = img[x][y][c] * value
                     continue
+    return img
+
+
+def reduce_colored_value(img, gap, value):
+    for x in range(0, len(img)):
+        for y in range(0, len(img[x])):
+            if (abs(img[x][y][0] - img[x][y][1]) > gap or
+                    abs(img[x][y][1] - img[x][y][2]) > gap or
+                    abs(img[x][y][0] - img[x][y][2]) > gap):
+                for c in range(0, 3):
+                    img[x][y][c] = img[x][y][c] * value
+                continue
     return img
 
 
