@@ -102,7 +102,7 @@ class CustomModel:
             train[0], train[1],
             batch_size=16,
             callbacks=[EarlyStopping(
-                monitor='val_loss', patience=8, mode='min', restore_best_weights=True)],
+                monitor='val_loss', patience=10, mode='min', restore_best_weights=True)],
             epochs=epochs,
             verbose=verbose,
             validation_data=test,

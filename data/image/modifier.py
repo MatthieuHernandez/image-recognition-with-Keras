@@ -2,11 +2,11 @@ import numpy as np
 
 
 def modify(img):
-    img = reduce_colored_value(img, 0.2, 0.97)
-    img = reduce_small_values(img, 0.80, 0.85)
+    img = reduce_colored_value(img, 0.22, 0.97)
+    img = reduce_small_values(img, 0.80, 0.89)
     img = convert_to_grayscale(img)
-    img = change_brightness(img, 0.80)
-    img = change_contrast(img, 2.45)
+    img = change_brightness(img, 0.84)
+    img = change_contrast(img, 2.25)
     img = reduce_small_values(img, 0.8, 0.96)
     img = sqrt(img)
     return img

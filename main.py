@@ -5,8 +5,6 @@ from data.regression import Regression
 from model import regression
 from tools import *
 
-auto_stop = True
-
 
 def test_regression():
     train_set = Regression.load_set(
