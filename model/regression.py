@@ -30,11 +30,11 @@ class CustomModel:
                                   ))
             self.model.add(MaxPooling2D(pool_size=(2, 2), padding='valid'))
             self.model.add(Flatten())
-            self.model.add(Dense(350, activation='tanh'))
+            self.model.add(Dense(500, activation='tanh'))
             self.model.add(BatchNormalization())
             self.model.add(Dropout(0.20))
 
-            self.model.add(Dense(120, activation='tanh'))
+            self.model.add(Dense(100, activation='tanh'))
             self.model.add(BatchNormalization())
             self.model.add(Dropout(0.15))
 
@@ -98,15 +98,20 @@ class CustomModel:
                                optimizer='adam',  # adadelta
                                metrics=['mae'])
 
+        early_stop = EarlyStopping(
+            monitor='val_loss', patience=50, mode='min', restore_best_weights=True)
+        reduce_LR = ReduceLROnPlateau(
+            monitor='val_loss', factor=0.5, patience=20, mode='min', min_delta=0.0001)
+
         history = self.model.fit(
             train[0], train[1],
             batch_size=16,
-            callbacks=[EarlyStopping(
-                monitor='val_loss', patience=10, mode='min', restore_best_weights=True)],
+            callbacks=[early_stop, reduce_LR],
             epochs=epochs,
             verbose=verbose,
             validation_data=test,
-            validation_freq=6,
+            validation_freq=2,
+            workers=8,
             use_multiprocessing=True)
         return history
 

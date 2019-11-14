@@ -13,17 +13,17 @@ def generate_images(folder):
 
     path = "Data\\Image\\dataset\\" + folder + "\\inputs\\"
     clean_folder(path)
-    for _group in range(0, 10):
+    for group in range(0, 10):
         for angle in range(0, 100):
             img = create_image()
-            add_noise(img)
-            add_line(img)
+            add_noise(img, group)
+            add_line(img, group)
             img = rotate(img, (angle) * rand.uniform(3.5856, 3.6144))
-            add_line(img)
+            add_line(img, group)
             img = resize(img)
             img = modifier.change_contrast(img, rand.uniform(1.8, 1.9))
             save(img, path + "img_" +
-                 str('{0:02d}'.format(angle)) + "_" + str(_group) + ".png")
+                 str('{0:02d}'.format(angle)) + "_" + str(group) + ".png")
 
 
 def clean_folder(path):
@@ -36,21 +36,22 @@ def create_image():
     return img
 
 
-def add_noise(img):
+def add_noise(img, group):
     for x in range(0, 40):
         for y in range(0, 40):
             for c in range(0, 3):
-                img[y][x][c] = rand.uniform(0.0, 1.0)
+                img[y][x][c] = rand.uniform(0.0, 1.0-group*0.04)
 
 
-def add_line(img):
+def add_line(img, group):
     for y in range(0, 21):
-        color_to_white(img, 20, y)
+        color_to_white(img, 20, y, group)
 
 
-def color_to_white(img, x, y):
+def color_to_white(img, x, y, group):
+    r = rand.uniform(0.9-group*0.035, 1)
     for c in range(0, 3):
-        img[y][x][c] = rand.uniform(0.90, 1)
+        img[y][x][c] = r
 
 
 def rotate(img, degree):
@@ -69,7 +70,7 @@ def save(img, name):
 
 
 def main():
-    print("Start")
+    print("Start to generate images")
     generate_images("train_auto-generated")
     print("End")
 
