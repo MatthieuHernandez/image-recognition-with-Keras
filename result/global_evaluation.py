@@ -32,7 +32,7 @@ def evaluation(model, dataset, labels, print_errors=False):
     for i in range(0, len(dataset[0])):
         inputs = dataset[0][i].reshape(1, 20, 20, 1)
         res = model.predict(inputs)[0][0] * 100
-        if abs(res - labels[i]) < 15:  # 2
+        if abs(res - labels[i]) < 5:  # 2
             well = well + 1
         else:
             if print_errors:

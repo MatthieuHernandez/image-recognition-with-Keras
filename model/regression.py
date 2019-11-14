@@ -19,29 +19,24 @@ class CustomModel:
             # self.model.add(
             #    LocallyConnected2D(1, kernel_size=2, activation='relu'))
             self.model.add(Flatten())
-            self.model.add(Dense(500, activation='relu'))
+            self.model.add(Dense(300, activation='relu'))
             self.model.add(Dense(40, activation='tanh'))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'complexe':
-            self.model.add(Conv2D(8, kernel_size=4, padding='same', activation='relu',
-                                  bias_regularizer=keras.regularizers.l2(
-                                      0.0001)
-                                  ))
+            self.model.add(
+                Conv2D(12, kernel_size=3, padding='same', activation='relu',
+                       kernel_regularizer=keras.regularizers.l2(0.0001)))
+            self.model.add(BatchNormalization())
+            self.model.add(
+                Conv2D(12, kernel_size=3, padding='same', activation='relu',
+                       kernel_regularizer=keras.regularizers.l2(0.0001)))
+            self.model.add(BatchNormalization())
             self.model.add(MaxPooling2D(pool_size=(2, 2), padding='valid'))
+            self.model.add(Dropout(0.2))
             self.model.add(Flatten())
-            self.model.add(Dense(500, activation='tanh'))
-            self.model.add(BatchNormalization())
-            self.model.add(Dropout(0.20))
-
-            self.model.add(Dense(100, activation='tanh'))
-            self.model.add(BatchNormalization())
-            self.model.add(Dropout(0.15))
-
-            self.model.add(Dense(35, activation='sigmoid'))
-            self.model.add(BatchNormalization())
-            self.model.add(Dropout(0.10))
-
+            self.model.add(Dense(256, activation='relu'))
+            self.model.add(Dropout(0.4))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'pyramidnet':
@@ -71,17 +66,25 @@ class CustomModel:
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'resnet':
-            for _layer in range(0, 3):
-                self.model.add(Conv2D(4, kernel_size=2, padding='same', activation='relu',
-                                      kernel_regularizer=keras.regularizers.l2(
-                                          0.0001)
-                                      ))
+
+            self.model.add(Conv2D(16, kernel_size=3, padding='same', activation='relu',
+                                  kernel_regularizer=keras.regularizers.l2(
+                                      0.0001)
+                                  ))
             self.model.add(BatchNormalization())
+            self.model.add(Conv2D(32, kernel_size=3, padding='same', activation='relu',
+                                  kernel_regularizer=keras.regularizers.l2(
+                                      0.0001)
+                                  ))
+            self.model.add(BatchNormalization())
+            self.model.add(Conv2D(64, kernel_size=3, padding='same', activation='relu',
+                                  kernel_regularizer=keras.regularizers.l2(
+                                      0.0001)
+                                  ))
+
+            self.model.add(BatchNormalization())
+            self.model.add(AveragePooling2D(pool_size=(2, 2), padding='valid'))
             self.model.add(Flatten())
-            self.model.add(Dense(120, activation='relu'))
-            self.model.add(BatchNormalization())
-            self.model.add(Dense(90, activation='tanh'))
-            self.model.add(BatchNormalization())
             self.model.add(Dense(1, activation='sigmoid'))
         else:
             raise Exception("CustomModel must have a valid type")
