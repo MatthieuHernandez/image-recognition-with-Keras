@@ -24,67 +24,49 @@ class CustomModel:
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'complexe':
+
+            regu = keras.regularizers.l2(0.0001)
+
             self.model.add(
-                Conv2D(12, kernel_size=3, padding='same', activation='relu',
-                       kernel_regularizer=keras.regularizers.l2(0.0001)))
+                Conv2D(12, kernel_size=3, padding='same', activation='relu', kernel_regularizer=regu))
             self.model.add(BatchNormalization())
             self.model.add(
-                Conv2D(12, kernel_size=3, padding='same', activation='relu',
-                       kernel_regularizer=keras.regularizers.l2(0.0001)))
+                Conv2D(12, kernel_size=3, padding='same', activation='relu', kernel_regularizer=regu))
             self.model.add(BatchNormalization())
-            self.model.add(MaxPooling2D(pool_size=(2, 2), padding='valid'))
+            self.model.add(AveragePooling2D(pool_size=(2, 2), padding='valid'))
             self.model.add(Dropout(0.2))
             self.model.add(Flatten())
-            self.model.add(Dense(256, activation='relu'))
+            self.model.add(
+                Dense(256, activation='tanh', kernel_regularizer=regu))
             self.model.add(Dropout(0.4))
-            self.model.add(Dense(1, activation='sigmoid'))
-
-        elif model_type == 'pyramidnet':
-            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='relu',
-                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
-                                  ))
-            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='sigmoid',
-                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
-                                  ))
-            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='sigmoid',
-                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
-                                  ))
-            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='sigmoid',
-                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
-                                  ))
-            self.model.add(Conv2D(1, kernel_size=4, padding='valid', activation='sigmoid',
-                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
-                                  ))
-            self.model.add(Conv2D(1, kernel_size=2, padding='valid', activation='sigmoid',
-                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
-                                  ))
-            self.model.add(Conv2D(1, kernel_size=2, padding='valid', activation='sigmoid',
-                                  use_bias=True, bias_initializer='Zeros', bias_regularizer=keras.regularizers.l2(0.01)
-                                  ))
-            self.model.add(Flatten())
-            self.model.add(Dense(8, activation='sigmoid'))
             self.model.add(Dense(1, activation='sigmoid'))
 
         elif model_type == 'resnet':
 
+            inputs = keras.engine.input_layer.Input()
+
             self.model.add(Conv2D(16, kernel_size=3, padding='same', activation='relu',
                                   kernel_regularizer=keras.regularizers.l2(
-                                      0.0001)
+                                      0.01)
                                   ))
             self.model.add(BatchNormalization())
             self.model.add(Conv2D(32, kernel_size=3, padding='same', activation='relu',
                                   kernel_regularizer=keras.regularizers.l2(
-                                      0.0001)
+                                      0.01)
                                   ))
             self.model.add(BatchNormalization())
             self.model.add(Conv2D(64, kernel_size=3, padding='same', activation='relu',
                                   kernel_regularizer=keras.regularizers.l2(
-                                      0.0001)
+                                      0.01)
                                   ))
 
             self.model.add(BatchNormalization())
-            self.model.add(AveragePooling2D(pool_size=(2, 2), padding='valid'))
+            self.model.add(AveragePooling2D(pool_size=(
+                2, 2), padding='valid'), kernel_regularizer=keras.regularizers.l2(0.01))
             self.model.add(Flatten())
+            self.model.add(Dense(256, activation='relu'),
+                           kernel_regularizer=keras.regularizers.l2(0.01))
+            self.model.add(Dropout(0.4))
             self.model.add(Dense(1, activation='sigmoid'))
         else:
             raise Exception("CustomModel must have a valid type")
@@ -102,14 +84,14 @@ class CustomModel:
                                metrics=['mae'])
 
         early_stop = EarlyStopping(
-            monitor='val_loss', patience=50, mode='min', restore_best_weights=True)
-        reduce_LR = ReduceLROnPlateau(
-            monitor='val_loss', factor=0.5, patience=20, mode='min', min_delta=0.0001)
+            monitor='val_mae', patience=40, mode='min', restore_best_weights=True)
+        reduce_lr = ReduceLROnPlateau(
+            monitor='val_mae', factor=0.5, patience=16, mode='min', min_delta=0.0001)
 
         history = self.model.fit(
             train[0], train[1],
             batch_size=16,
-            callbacks=[early_stop, reduce_LR],
+            callbacks=[early_stop, reduce_lr],
             epochs=epochs,
             verbose=verbose,
             validation_data=test,
