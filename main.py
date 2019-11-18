@@ -7,16 +7,16 @@ from tools import *
 
 
 def test_regression():
-    train_set = Regression.load_set(
-        ["train", "train_auto-generated"])  # "train",
+
+    print("Building the model...")
+    model = regression.CustomModel('simple')
+
+    print("Loading the dataset...")
+    train_set = Regression.load_set(["train"])  # , "train_auto-generated"
     easy_test_set = Regression.load_set(["test_easy"])
     hard_test_set = Regression.load_set(["test_hard"])
 
-    print("Creation model for regression...")
-
-    model = regression.CustomModel('complexe')
-
-    print("Training model for regression...")
+    print("Training the model...")
 
     history = model.train(train_set, hard_test_set, 'adam', 1000, 2)
     result.plot.display(history, 'mae')
