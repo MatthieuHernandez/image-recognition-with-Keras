@@ -11,66 +11,54 @@ from keras.regularizers import *
 class CustomModel:
 
     def __init__(self, model_type):
-        self.model = Sequential()
         self.__create(model_type)
 
     def __create(self, model_type):
+        inputs = keras.engine.input_layer.Input(shape=(20, 20, 1))
 
         if model_type == 'simple':
-            self.model.add(LocallyConnected2D(
-                2, kernel_size=3, activation='relu'))
-            self.model.add(Flatten())
-            self.model.add(Dense(250, activation='tanh'))
-            self.model.add(Dense(1, activation='sigmoid'))
+            model = LocallyConnected2D(2, kernel_size=3, activation='relu')(inputs)
+            model = Flatten()(model)
+            model = Dense(250, activation='tanh')(model)
+            model = Dense(1, activation='sigmoid')(model)
 
         elif model_type == 'complexe':
-            self.model.add(
-                Conv2D(12, kernel_size=3, padding='same', activation='relu', kernel_regularizer=l2(0.0001)))
-            self.model.add(BatchNormalization())
-            self.model.add(
-                Conv2D(12, kernel_size=3, padding='same', activation='relu', kernel_regularizer=l2(0.0001)))
-            self.model.add(BatchNormalization())
-            self.model.add(AveragePooling2D(pool_size=(2, 2), padding='valid'))
-            self.model.add(Dropout(0.2))
-            self.model.add(Flatten())
-            self.model.add(
-                Dense(256, activation='tanh', kernel_regularizer=l2(0.0001)))
-            self.model.add(Dropout(0.4))
-            self.model.add(Dense(1, activation='sigmoid'))
+            model = Conv2D(12, kernel_size=3, padding='same', activation='relu', kernel_regularizer=l2(0.0001))(inputs)
+            model = BatchNormalization()(model)
+            model = Conv2D(12, kernel_size=3, padding='same', activation='relu', kernel_regularizer=l2(0.0001))(model)
+            model = BatchNormalization()(model)
+            model = AveragePooling2D(pool_size=(2, 2), padding='valid')(model)
+            model = Dropout(0.2)(model)
+            model = Flatten()(model)
+            model = Dense(256, activation='tanh', kernel_regularizer=l2(0.0001))(model)
+            model = Dropout(0.4)(model)
+            model = Dense(1, activation='sigmoid')(model)
 
         elif model_type == 'resnet':
-            inputs = keras.engine.input_layer.Input(shape=(20, 20, 1))
-            self.__resnet_layer(16)
-            self.__resnet_layer(16, inputs)
-            self.__resnet_layer(16)
-            self.__resnet_layer(16, inputs)
-            self.__resnet_layer(32)
-            self.__resnet_layer(32, inputs)
-            self.__resnet_layer(32)
-            self.__resnet_layer(32, inputs)
-            self.__resnet_layer(64)
-            self.__resnet_layer(64, inputs)
-            self.__resnet_layer(64)
-            self.__resnet_layer(64, inputs)
 
-            self.model.add(AveragePooling2D(pool_size=(2, 2), padding='valid'))
-            self.model.add(Flatten())
-            self.model.add(Dense(256, activation='tanh',
-                                 kernel_regularizer=l2(0.0001)))
-            self.model.add(Dropout(0.4))
-            self.model.add(Dense(1, activation='sigmoid'))
+            first = self.__resnet_layer(inputs, 16)
+            model = self.__resnet_layer(first, 16)
+            model = self.__resnet_layer(model, 32)
+            model = self.__resnet_layer(model, 32, first)
+            model = self.__resnet_layer(model, 64)
+            model = self.__resnet_layer(model, 64, first)
+            model = self.__resnet_layer(model, 128)
+            model = self.__resnet_layer(model, 128, first)
+
+            model = AveragePooling2D(pool_size=(2, 2), padding='valid')(model)
+            model = Flatten()(model)
+            model = Dense(128, activation='tanh', kernel_regularizer=l2(0.0001))(model)
+            model = Dropout(0.4)(model)
+            model = Dense(1, activation='sigmoid')(model)
         else:
             raise Exception("CustomModel must have a valid type")
+        self.model = Model(inputs=inputs, outputs=model)
 
-    def __resnet_layer(self, size, output=None):
-
-        layer = Conv2D(size, kernel_size=3, padding='same', activation='relu',
-                       kernel_regularizer=l2(0.0001))
-        if output is not None:
-            self.model.add()([layer, layer])
-        else:
-            self.model.add(layer)
-        self.model.add(BatchNormalization())
+    def __resnet_layer(self, model, size, inputs=None):
+        model = Conv2D(size, kernel_size=3, padding='same', activation='relu', kernel_regularizer=l2(0.0001))(model)
+        if inputs is not None:
+            model = concatenate([model, inputs])
+        return model
 
     def train(self, train, test, optimizer, epochs, verbose=0):
         # Compile

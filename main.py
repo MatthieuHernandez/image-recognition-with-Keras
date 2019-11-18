@@ -9,10 +9,10 @@ from tools import *
 def test_regression():
 
     print("Building the model...")
-    model = regression.CustomModel('simple')
+    model = regression.CustomModel('resnet')
 
     print("Loading the dataset...")
-    train_set = Regression.load_set(["train"])  # , "train_auto-generated"
+    train_set = Regression.load_set(["train", "train_auto-generated"])  # , "train_auto-generated"
     easy_test_set = Regression.load_set(["test_easy"])
     hard_test_set = Regression.load_set(["test_hard"])
 

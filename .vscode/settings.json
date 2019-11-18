@@ -3,11 +3,15 @@
         "--disable=wildcard-import",
         "--disable=missing-docstring",
         "--disable=W0614",
-        "--max-line-length=150",
+        "--max-line-length=120",
         "--good-names=c,i,j,k,x,y,z"
     ],
-    "python.linting.pylintEnabled": true,
+    "python.formatting.autopep8Args": [
+        "--max-line-length=120"
+    ],
     "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.lintOnSave": false,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": true
