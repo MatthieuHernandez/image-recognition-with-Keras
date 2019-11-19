@@ -17,21 +17,21 @@ class CustomModel:
         inputs = keras.engine.input_layer.Input(shape=(20, 20, 1))
 
         if model_type == 'simple':
-            model = LocallyConnected2D(2, kernel_size=3, activation='relu')(inputs)
+            model = LocallyConnected2D(1, kernel_size=4, activation='relu')(inputs)
             model = Flatten()(model)
-            model = Dense(250, activation='tanh')(model)
+            model = Dense(200, activation='sigmoid')(model)
             model = Dense(1, activation='sigmoid')(model)
 
         elif model_type == 'complexe':
-            model = Conv2D(12, kernel_size=3, padding='same', activation='relu', kernel_regularizer=l2(0.0001))(inputs)
-            model = BatchNormalization()(model)
-            model = Conv2D(12, kernel_size=3, padding='same', activation='relu', kernel_regularizer=l2(0.0001))(model)
-            model = BatchNormalization()(model)
-            model = AveragePooling2D(pool_size=(2, 2), padding='valid')(model)
-            model = Dropout(0.2)(model)
+            model = Conv2D(6, kernel_size=4, padding='same', activation='relu')(inputs)
+            model = AveragePooling2D(pool_size=(2, 2), padding='same')(model)
             model = Flatten()(model)
-            model = Dense(256, activation='tanh', kernel_regularizer=l2(0.0001))(model)
-            model = Dropout(0.4)(model)
+            model = Dense(200, activation='tanh')(model)
+            model = Dropout(0.2)(model)
+            model = BatchNormalization()(model)
+            model = Dense(80, activation='sigmoid')(model)
+            model = BatchNormalization()(model)
+            model = Dropout(0.2)(model)
             model = Dense(1, activation='sigmoid')(model)
 
         elif model_type == 'resnet':
@@ -76,9 +76,9 @@ class CustomModel:
                                metrics=['mae'])
 
         early_stop = EarlyStopping(
-            monitor='val_mae', patience=40, mode='min', restore_best_weights=True)
+            monitor='val_mae', patience=100, mode='min', restore_best_weights=True)
         reduce_lr = ReduceLROnPlateau(
-            monitor='val_mae', factor=0.5, patience=16, mode='min', min_delta=0.0001)
+            monitor='mae', factor=0.8, patience=20, mode='min', min_delta=0.0001)
 
         history = self.model.fit(
             train[0], train[1],
@@ -87,7 +87,7 @@ class CustomModel:
             epochs=epochs,
             verbose=verbose,
             validation_data=test,
-            validation_freq=2,
+            validation_freq=1,
             workers=8,
             use_multiprocessing=True)
         return history

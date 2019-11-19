@@ -9,7 +9,7 @@ from tools import *
 def test_regression():
 
     print("Building the model...")
-    model = regression.CustomModel('resnet')
+    model = regression.CustomModel('complexe')
 
     print("Loading the dataset...")
     train_set = Regression.load_set(["train", "train_auto-generated"])  # , "train_auto-generated"

@@ -13,17 +13,19 @@ def generate_images(folder):
 
     path = "Data\\Image\\dataset\\" + folder + "\\inputs\\"
     clean_folder(path)
-    for group in range(0, 10):
+    for group in range(0, 1):
         for angle in range(0, 100):
             img = create_image()
             add_noise(img, group)
             add_line(img, group)
-            img = rotate(img, (angle) * rand.uniform(3.5856, 3.6144))
+            img = rotate(img, angle*3.6)
             add_line(img, group)
             img = resize(img)
             img = modifier.change_contrast(img, rand.uniform(1.8, 1.9))
+            #x = angle/100
+            #label = 0.5*(1 - pow((1-2*x), 0.333))
             save(img, path + "img_" +
-                 str('{0:02d}'.format(angle)) + "_" + str(group) + ".png")
+                 str('{0:02d}'.format(angle-2)) + "_" + str(group) + ".png")
 
 
 def clean_folder(path):
@@ -40,7 +42,7 @@ def add_noise(img, group):
     for x in range(0, 40):
         for y in range(0, 40):
             for c in range(0, 3):
-                img[y][x][c] = rand.uniform(0.0, 1.0-group*0.04)
+                img[y][x][c] = rand.uniform(0.0, 1.0)
 
 
 def add_line(img, group):
@@ -49,9 +51,8 @@ def add_line(img, group):
 
 
 def color_to_white(img, x, y, group):
-    r = rand.uniform(0.9-group*0.035, 1)
     for c in range(0, 3):
-        img[y][x][c] = r
+        img[y][x][c] = rand.uniform(0.90, 1)
 
 
 def rotate(img, degree):
