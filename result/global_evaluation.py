@@ -20,9 +20,9 @@ def global_evaluation(model):
     accuracy_easy = evaluation(model, easy_test_set, labels_easy)
     accuracy_hard = evaluation(model, hard_test_set, labels_hard, True)
 
-    result.display.regression(accuracy_train, "train")
-    result.display.regression(accuracy_easy, "Easy")
-    result.display.regression(accuracy_hard, "Hard")
+    result.display.classification(accuracy_train, "train")
+    result.display.classification(accuracy_easy, "Easy")
+    result.display.classification(accuracy_hard, "Hard")
 
 
 def evaluation(model, dataset, labels, print_errors=False):

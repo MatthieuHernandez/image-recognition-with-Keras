@@ -39,7 +39,7 @@ def main():
     model = test_regression()
     print("========================================================================")
     print("========================================================================")
-    # result.global_evaluation.global_evaluation(model)
+    result.global_evaluation.global_evaluation(model)
     print("Run in", round(time.time() - start), "secondes")
     print("End")
 
