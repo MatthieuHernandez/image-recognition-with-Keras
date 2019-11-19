@@ -23,15 +23,17 @@ class CustomModel:
             model = Dense(1, activation='sigmoid')(model)
 
         elif model_type == 'complexe':
-            model = Conv2D(6, kernel_size=4, padding='same', activation='relu')(inputs)
-            model = AveragePooling2D(pool_size=(2, 2), padding='same')(model)
+            model = Conv2D(8, kernel_size=4, padding='same', activation='relu', bias_regularizer=l2(0.0001))(inputs)
             model = Flatten()(model)
-            model = Dense(200, activation='tanh')(model)
-            model = Dropout(0.2)(model)
-            model = BatchNormalization()(model)
-            model = Dense(80, activation='sigmoid')(model)
+            model = Dense(500, activation='tanh')(model)
             model = BatchNormalization()(model)
             model = Dropout(0.2)(model)
+            model = Dense(100, activation='tanh')(model)
+            model = BatchNormalization()(model)
+            model = Dropout(0.15)(model)
+            model = Dense(35, activation='tanh')(model)
+            model = BatchNormalization()(model)
+            model = Dropout(0.1)(model)
             model = Dense(1, activation='sigmoid')(model)
 
         elif model_type == 'resnet':
@@ -76,13 +78,13 @@ class CustomModel:
                                metrics=['mae'])
 
         early_stop = EarlyStopping(
-            monitor='val_mae', patience=100, mode='min', restore_best_weights=True)
+            monitor='val_mae', patience=80, mode='min', restore_best_weights=True)
         reduce_lr = ReduceLROnPlateau(
             monitor='mae', factor=0.8, patience=20, mode='min', min_delta=0.0001)
 
         history = self.model.fit(
             train[0], train[1],
-            batch_size=16,
+            batch_size=32,
             callbacks=[early_stop, reduce_lr],
             epochs=epochs,
             verbose=verbose,

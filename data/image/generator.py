@@ -22,10 +22,8 @@ def generate_images(folder):
             add_line(img, group)
             img = resize(img)
             img = modifier.change_contrast(img, rand.uniform(1.8, 1.9))
-            #x = angle/100
-            #label = 0.5*(1 - pow((1-2*x), 0.333))
             save(img, path + "img_" +
-                 str('{0:02d}'.format(angle-2)) + "_" + str(group) + ".png")
+                 str('{0:02d}'.format(angle)) + "_" + str(group) + ".png")
 
 
 def clean_folder(path):

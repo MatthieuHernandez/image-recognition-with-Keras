@@ -4,14 +4,14 @@ def regression(score, difficulty) :
         __successful(difficulty)
     else:
         __fail(difficulty)
-    print(difficulty + " test mean absolute error: ", score)
+    print(difficulty + " score: ", score)
 
 def classification(score, difficulty) :
     if score > 0.98 :
         __successful(difficulty)
     else:
         __fail(difficulty)
-    print(difficulty + " test accuracy: ", score*100, "%")
+    print(difficulty + " score: ", score*100, "%")
 
 
 def __successful(difficulty):
